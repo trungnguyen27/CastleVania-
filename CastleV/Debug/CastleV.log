@@ -1,0 +1,4 @@
+﻿  Info.cpp
+c:\users\incom\documents\visual studio 2017\projects\castlev\castlev\framework\inputcontroller.h(25): warning C4467: usage of ATL attributes is deprecated
+  CastleV.vcxproj -> C:\Users\incom\Documents\Visual Studio 2017\Projects\CastleV\Debug\CastleV.exe
+  CastleV.vcxproj -> C:\Users\incom\Documents\Visual Studio 2017\Projects\CastleV\Debug\CastleV.pdb (Partial PDB)

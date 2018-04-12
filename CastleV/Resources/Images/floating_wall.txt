@@ -1,0 +1,2 @@
+frame_name		left	top	right	bottom
+floating_wall		0	0	64	16
