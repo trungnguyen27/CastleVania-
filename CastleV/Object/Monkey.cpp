@@ -46,7 +46,8 @@ void Monkey::update(float deltatime)
 			}
 		}
 
-		if (_shootStopWatch->isTimeLoop(SHOOT_DELAY))
+		// If not follow the franken, do shaken
+		if (!_follow && _shootStopWatch->isTimeLoop(SHOOT_DELAY))
 		{
 			this->shoot();
 		}
@@ -54,6 +55,13 @@ void Monkey::update(float deltatime)
 		if (_startHit)
 		{
 			move->setVelocity(GVector2(0, 0));
+		}
+
+		if (_follow && followTarget)
+		{
+			this->setPositionX(followTarget->getPositionX());
+			float scale = followTarget->getScale().x / abs(followTarget->getScale().x);
+			this->setScale(GVector2(scale, this->getScale().y));
 		}
 	}
 	else
@@ -86,23 +94,29 @@ void Monkey::update(float deltatime)
 
 void Monkey::shoot()
 {
-	auto y = this->getPositionY();
-	auto vector = GVector2((_currentPlayerLocation.x - this->getPositionX()), (_currentPlayerLocation.y - this->getPositionY()));
-	float magnitude = sqrt(vector.x * vector.x + vector.y * vector.y);
-	auto direction = GVector2(vector.x / magnitude, vector.y / magnitude);
-	auto fireball = new FireBall(this->getPositionX(), y, _isLeft);
-	fireball->init();
-	fireball->setDirection(direction);
-	QuadTreeNode::getInstance()->Insert(fireball);
+	if (_shootingTarget)
+	{
+		auto y = this->getPositionY();
+		auto vector = GVector2((_shootingTarget->getPositionX() - this->getPositionX()), (_shootingTarget->getPositionY() - this->getPositionY()));
+		float magnitude = sqrt(vector.x * vector.x + vector.y * vector.y);
+		auto direction = GVector2(vector.x / magnitude, vector.y / magnitude);
+		auto fireball = new FireBall(this->getPositionX(), y, _isLeft);
+		fireball->init();
+		fireball->setDirection(direction);
+		QuadTreeNode::getInstance()->Insert(fireball);
+	}
+	
 }
 
-void Monkey::updatePlayerLocation(GVector2 playerLoc)
+void Monkey::setShootingTarget(BaseObject* target)
 {
-	_currentPlayerLocation = playerLoc;
+	_shootingTarget = target;
 }
 
 float Monkey::checkCollision(BaseObject* object, float dt)
 {
+	if (!_activated) return 0.f;
+
 	if (object->getStatus() == eStatus::DESTROY || this->isInStatus(eStatus::DIE))
 		return 0.0f;
 	if (this == object)
@@ -123,9 +137,6 @@ float Monkey::checkCollision(BaseObject* object, float dt)
 					collisionBody->updateTargetPosition(object, direction, false, GVector2(moveX, moveY));
 					if (objectId != MONKEY_WALL)
 						this->jump();
-					else {
-						int a = 3;
-					}
 				}
 			}
 			else  if (direction == LEFT)
@@ -201,7 +212,7 @@ void Monkey::jump()
 	srand(time(NULL));
 
 	int leap = rand() % 150 + 100;
-	int angle = rand() % 300 + 250;
+	int angle = rand() % 250 + 200;
 	int direction = _isLeft ? -1 : 1;
 	//if (this->isInStatus(eStatus::JUMPING) || this->isInStatus(eStatus::FALLING))
 	//	return;
@@ -214,6 +225,24 @@ void Monkey::jump()
 
 	auto g = (Gravity*)this->_componentList["Gravity"];
 	g->setStatus(eGravityStatus::FALLING__DOWN);
+}
+
+void Monkey::active(bool activate)
+{
+	_activated = activate;
+	if (!_activated )
+	{
+		this->jump();
+	}
+}
+
+void Monkey::follow(BaseObject* target)
+{
+	if (target) {
+		followTarget = target;
+		_follow = true;
+	}
+	else _follow = false;
 }
 
 void Monkey::release()
@@ -231,13 +260,15 @@ void Monkey::init()
 	auto collisionBody = new CollisionBody(this);
 	_componentList["CollisionBody"] = collisionBody;
 
-	auto movement = new Movement(GVector2(0, 0), GVector2(-MONKEY_MOVE_SPEED, 0), _sprite);
+	auto movement = new Movement(GVector2(0, 0), GVector2(-0, 0), _sprite);
 	_componentList["Movement"] = movement;
 
 	_componentList["Gravity"] = new Gravity(GVector2(0, -GRAVITY), movement);
 	this->setOrigin(GVector2(0.5f, 0.0f));
-	auto gravity = (Gravity*)this->_componentList["Gravity"];
-	gravity->setStatus(eGravityStatus::FALLING__DOWN);
+
+
+	auto g = (Gravity*)this->_componentList["Gravity"];
+	g->setStatus(eGravityStatus::SHALLOWED);
 
 	_effectStopWatch = new StopWatch();
 	_hitStopWatch = new StopWatch();

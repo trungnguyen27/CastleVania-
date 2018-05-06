@@ -3,6 +3,7 @@
 
 #include "..\FrameWork\define.h"
 #include "BaseObject.h"
+#include "Monkey.h"
 #include "..\Framework\IComponent.h"
 #include "CollisionBody.h"
 #include "../FrameWork/Animation.h"
@@ -26,24 +27,31 @@ public:
 	float checkCollision(BaseObject* object, float dt);
 	GVector2 getVelocity();
 	void jump();
-	void moveToPlayer(int direction);
+	void moveToPlayer();
+	void moveAwayFromPlayer();
 	void standing();
+	void beHit();
+	void releaseMonkey();
+	void follow(BaseObject* );
 	void Active(bool active);
 	bool isActive();
 	bool isDead();
 protected:
+	Monkey * _monkey;
+
 	Animation* _animation;
 	map<string, IComponent*> _componentList;
 	float _moveSpeed;
 	float _initX;
-	int _currentDirection;
 	bool _isDead;
 	bool _isActive = false;
+	bool _beHit;
 	Sprite* _effect;
 	BaseObject* preWall;
+	BaseObject* _follow;
 	Animation* _effectAnimation;
 	StopWatch* _effectStopWatch;
-	StopWatch* _jumpStopWatch;
+	StopWatch* _hitStopWatch;
 };
 
 #endif

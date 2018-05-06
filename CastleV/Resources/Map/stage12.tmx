@@ -349,10 +349,9 @@
     <property name="status" value="0"/>
    </properties>
   </object>
-  <object id="69" name="Frankenstein" type="73" x="985" y="200.5" width="6.5" height="6.75"/>
+  <object id="69" name="Frankenstein" type="73" x="984.75" y="205.5" width="6.5" height="6.75"/>
   <object id="71" name="Dinosaur" type="74" x="292.833" y="163.5" width="8" height="9.33333"/>
   <object id="74" name="Dinosaur" type="74" x="738" y="163.833" width="8" height="9.33333"/>
-  <object id="75" name="Monkey" type="76" x="874.667" y="135.667" width="7" height="6.33333"/>
   <object id="79" name="MonkeyWall" type="46" x="759.333" y="47.3333" width="8.33333" height="114"/>
   <object id="80" name="MonkeyWall" type="46" x="1023.5" y="-0.5" width="10" height="207"/>
  </objectgroup>

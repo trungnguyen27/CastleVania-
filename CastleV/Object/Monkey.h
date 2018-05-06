@@ -14,9 +14,9 @@
 #include "FireBall.h"
 #include <time.h>
 
-#define MONKEY_MOVE_SPEED 70
-#define GRAVITY 500
-#define SHOOT_DELAY 1000.0f
+#define MONKEY_MOVE_SPEED 60
+#define GRAVITY 400
+#define SHOOT_DELAY 2000.0f
 
 class Monkey : public BaseObject
 {
@@ -37,8 +37,9 @@ public:
 	void turnLeft();
 	void turnRight();
 	void shoot();
-
-	void updatePlayerLocation(GVector2);
+	void active(bool activate);
+	void follow(BaseObject*);
+	void setShootingTarget(BaseObject*);
 
 protected:
 	Animation* _animation;
@@ -52,12 +53,14 @@ protected:
 	Animation* _effectAnimation;
 	StopWatch* _effectStopWatch;
 	BaseObject* preWall;
-
+	BaseObject* followTarget; 
 	StopWatch* _hitStopWatch;
 	StopWatch* _shootStopWatch;
 	bool _startHit;
 	bool _isLeft = true;
-	GVector2 _currentPlayerLocation;
+	bool _follow = false;
+	bool _activated;
+	BaseObject* _shootingTarget;
 
 };
 #endif

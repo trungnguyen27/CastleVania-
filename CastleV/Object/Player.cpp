@@ -819,18 +819,18 @@ float Player::checkCollision(BaseObject* object, float dt)
 				}
 				behit(direction);
 			}
-		/*	if (ropeCollisionBody->checkCollision(object, direction, dt, false))
+			if (ropeCollisionBody->checkCollision(object, direction, dt, false))
 			{
-				((BlueBat*)object)->wasHit();
-				if (!SoundManager::getInstance()->IsPlaying(COLISION_SOUND))
-					SoundManager::getInstance()->Play(COLISION_SOUND);
+				//((Bat*)object)->wasHit();
+			/*	if (!SoundManager::getInstance()->IsPlaying(COLISION_SOUND))
+					SoundManager::getInstance()->Play(COLISION_SOUND);*/
 			}
 			if (this->weaponCheckCollision(object, direction, dt, false))
 			{
-				((BlueBat*)object)->wasHit();
+				//((Bat*)object)->wasHit();
 			}
-			if (((BlueBat*)object)->isDead())
-				_info->AddScore(200);*/
+			if (((Bat*)object)->isDead())
+				_info->AddScore(200);
 		}
 	}
 	else if (objectId == FISHMAN) {
@@ -864,8 +864,7 @@ float Player::checkCollision(BaseObject* object, float dt)
 	}
 	else if (objectId == MONKEY)
 	{
-		Monkey* monkey = (Monkey*)object;
-		monkey->updatePlayerLocation(this->getPosition());
+
 	}
 	else if (objectId == WATER) {
 		if (collisionBody->checkCollision(object, direction, dt, false))
@@ -923,30 +922,36 @@ float Player::checkCollision(BaseObject* object, float dt)
 	{
 		if (collisionBody->checkCollision(object, direction, dt, false))
 		{
-		
-			
 		}
-		int playerDir = 1;
 		auto objPos = object->getPosition();
 		auto pos = this->getPosition();
 		Frankenstein* frankenstein = (Frankenstein*)object;
-		if ((this->getPositionX() - object->getPositionX() > 0))
-			playerDir = -1;
-		else playerDir = 1;
-		if (!((Frankenstein*)object)->isActive())
+
+		float deltaX = abs(pos.x - objPos.x);
+		if (!frankenstein->isActive())
 		{
-			if (getdistance(objPos, pos) < 200 && abs(pos.x - objPos.x) < 200)
+			if (getdistance(objPos, pos) < 400 && deltaX < 400)
 			{
 				frankenstein->Active(true);
-				frankenstein->moveToPlayer(playerDir);
+				frankenstein->follow(this);
 			}
 		}
 		else {
-			if (getdistance(objPos, pos) > 200 && abs(pos.x - objPos.x) > 200)
+			if (getdistance(objPos, pos) > 400 && deltaX > 400)
 			{
 				frankenstein->Active(false);
 			}
-			frankenstein->moveToPlayer(playerDir);
+			if (deltaX < 100)
+			{
+				frankenstein->releaseMonkey();
+			}
+
+			if (ropeCollisionBody->checkCollision(object, direction, dt, false))
+			{
+				frankenstein->beHit();
+				/*if (!SoundManager::getInstance()->IsPlaying(COLISION_SOUND))
+				SoundManager::getInstance()->Play(COLISION_SOUND);*/
+			}
 		}
 	}
 	else if (objectId == DINOSAUR)

@@ -5,7 +5,11 @@ Frankenstein::Frankenstein(int x, int y) : BaseObject(FRANKENSTEIN)
 	_sprite = SpriteManager::getInstance()->getSprite(eID::ENEMY);
 	_sprite->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::ENEMY, "frankenstein_1"));
 	_sprite->setPosition(x, y);
-	_sprite->setScale(1.5f);
+	_sprite->setScale(1.25f);
+
+	_monkey = new Monkey(x, y+65, 200);
+	_monkey->init();
+	_monkey->follow(this);
 
 	_animation = new Animation(_sprite, 0.2f);
 	_animation->addFrameRect(eID::ENEMY, "frankenstein_1", "frankenstein_2", "frankenstein_3", NULL);
@@ -21,7 +25,9 @@ void Frankenstein::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 		_effectAnimation->draw(spriteHandle, viewport);
 	else
 	{
+		_monkey->draw(spriteHandle, viewport);
 		_animation->draw(spriteHandle, viewport);
+		
 	}
 }
 
@@ -31,7 +37,14 @@ void Frankenstein::update(float deltatime)
 	{
 		if (_isActive)
 		{
-			
+			if (_beHit)
+			{
+				if(_hitStopWatch->isStopWatch(4000))
+					_beHit = false;
+				this->moveAwayFromPlayer();
+			}
+			else
+				this->moveToPlayer();
 		}
 	/*	if (_jumpStopWatch->isStopWatch(500))
 		{
@@ -66,13 +79,12 @@ void Frankenstein::update(float deltatime)
 
 	this->updateStatus(deltatime);
 	_animation->update(deltatime);
+	_monkey->update(deltatime);
 
 	for (auto it = _componentList.begin(); it != _componentList.end(); it++)
 	{
 		it->second->update(deltatime);
 	}
-
-
 }
 
 float Frankenstein::checkCollision(BaseObject* object, float dt)
@@ -82,9 +94,30 @@ float Frankenstein::checkCollision(BaseObject* object, float dt)
 	if (this == object)
 		return 0.0f;
 
+	if (_monkey)
+		_monkey->checkCollision(object, dt);
+
+	if (object->getStatus() == eStatus::DESTROY || this->isInStatus(eStatus::DIE))
+		return 0.0f;
+	if (this == object)
+		return 0.0f;
+
 	auto collisionBody = (CollisionBody*)_componentList["CollisionBody"];
 	eID objectId = object->getId();
 	eDirection direction;
+	if ( objectId == MONKEY_WALL)
+	{
+		if (collisionBody->checkCollision(object, direction, dt, false) && !this->isInStatus(MOVING_UP))
+		{
+			float moveX, moveY;
+			if (collisionBody->isColliding(object, moveX, moveY, dt))
+			{
+				collisionBody->updateTargetPosition(object, direction, false, GVector2(moveX, moveY));
+				_beHit = false;
+				this->moveToPlayer();
+			}
+		}
+	}
 	
 }
 
@@ -112,18 +145,45 @@ void Frankenstein::updateStatus(float dt)
 	//}
 }
 
-void Frankenstein::moveToPlayer(int direction)
+void Frankenstein::moveToPlayer()
 {
-	if (_currentDirection != direction)
-	{
-		_currentDirection = direction;
-	}
-	else return;
+	int direction = 1;
+	if ((_follow->getPositionX() - this->getPositionX() > 0))
+		direction = -1;
+	else direction = 1;
 
-	this->setScaleX(abs(this->getScale().x) * _currentDirection);
+	this->setScaleX(abs(this->getScale().x) * direction);
 
 	auto move = (Movement*)this->_componentList["Movement"];
-	move->setVelocity(GVector2(_currentDirection*_moveSpeed * -1, move->getVelocity().y));
+	move->setVelocity(GVector2(direction*_moveSpeed * -1, move->getVelocity().y));
+}
+
+void Frankenstein::moveAwayFromPlayer()
+{
+	int direction = 1;
+	if ((_follow->getPositionX() - this->getPositionX() > 0))
+		direction = -1;
+	else direction = 1;
+
+	auto move = (Movement*)this->_componentList["Movement"];
+	move->setVelocity(GVector2(direction*_moveSpeed, move->getVelocity().y));
+}
+
+void Frankenstein::follow(BaseObject* follow) {
+	if (_follow != follow)
+	{
+		_follow = follow;
+	}
+}
+
+void Frankenstein::releaseMonkey()
+{
+	if (_monkey)
+	{
+		_monkey->follow(NULL);
+		_monkey->setShootingTarget(_follow);
+		_monkey->active(true);
+	}
 }
 
 void Frankenstein::standing()
@@ -133,6 +193,12 @@ void Frankenstein::standing()
 	this->removeStatus(BEING_HIT);
 	this->removeStatus(eStatus::JUMPING);
 	this->removeStatus(eStatus::FALLING);
+}
+
+void Frankenstein::beHit()
+{
+	_beHit = true;
+	_hitStopWatch->restart();
 }
 
 void Frankenstein::release()
@@ -167,7 +233,8 @@ void Frankenstein::init()
 	gravity->setStatus(eGravityStatus::SHALLOWED);
 
 	_effectStopWatch = new StopWatch();
-	_jumpStopWatch = new StopWatch();
+	_hitStopWatch = new StopWatch();
+
 }
 
 void Frankenstein::Active(bool active)
