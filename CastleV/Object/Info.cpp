@@ -12,6 +12,20 @@ eID Info::GetCurrentWeapon()
 void Info::SetWeapon(eID id)
 {
 	_weaponID = id;
+
+	switch (id)
+	{
+	case DAGGER:
+	{
+		_weaponSprite = SpriteManager::getInstance()->getSprite(ITEM);
+		_weaponSprite->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::ITEM, "dagger"));
+		_weaponSprite->setPosition(300, 42);
+		break;
+	}
+	default:
+		_weaponSprite = nullptr;
+		break;
+	}
 }
 
 
@@ -24,6 +38,57 @@ Info::Info() : BaseObject(eID::INFO)
 	_border = SpriteManager::getInstance()->getSprite(BORDER);
 	_border->setScale(0.8f);
 	_border->setPosition(300, 42);
+
+	_textScore = new TextSprite(eID::FONTFULL, "SCORE- ", GVector2(10, 20));
+	_textScore->init();
+	_textScore->setScale(1.6);
+	_textScore->setOrigin(VECTOR2ZERO);
+
+	_textTime = new TextSprite(eID::FONTFULL, "STAGE- ", GVector2(200, 20));
+	_textTime->init();
+	_textTime->setScale(1.6);
+	_textTime->setOrigin(VECTOR2ZERO);
+
+	_textStage = new TextSprite(eID::FONTFULL, "STAGE- ", GVector2(380, 20));
+	_textStage->init();
+	_textStage->setScale(1.6);
+	_textStage->setOrigin(VECTOR2ZERO);
+
+	_iconHeart = SpriteManager::getInstance()->getSprite(eID::HEART_ICON);
+	_iconHeart->setScale(SCALE_FACTOR);
+	_iconHeart->setPosition(350, 35);
+
+	_textPlayer = new TextSprite(eID::FONTFULL, "PLAYER", GVector2(10, 42));
+	_textPlayer->init();
+	_textPlayer->setScale(1.6);
+	_textPlayer->setOrigin(VECTOR2ZERO);
+
+	_textEnemy = new TextSprite(eID::FONTFULL, "ENEMY", GVector2(10, 60));
+	_textEnemy->init();
+	_textEnemy->setScale(1.6);
+	_textEnemy->setOrigin(VECTOR2ZERO);
+
+	_textHeart = new TextSprite(eID::FONTFULL, "- ", GVector2(0, 0));
+	_textHeart->init();
+	_textHeart->setScale(1.6);
+	_textHeart->setOrigin(VECTOR2ZERO);
+
+	_textLife = new TextSprite(eID::FONTFULL, "P- ", GVector2(345, 60));
+	_textLife->init();
+	_textLife->setScale(1.6);
+	_textLife->setOrigin(VECTOR2ZERO);
+
+	_iconPlayerHitPoint = SpriteManager::getInstance()->getSprite(HEALING);
+	_iconPlayerHitPoint->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::HEALING, "red_blood"));
+	_iconPlayerHitPoint->setScale(0.9f);
+
+	_iconEnemyHitPoint = SpriteManager::getInstance()->getSprite(HEALING);
+	_iconEnemyHitPoint->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::HEALING, "pink_blood"));
+	_iconEnemyHitPoint->setScale(0.9f);
+
+	_iconEmptyHitPoint = SpriteManager::getInstance()->getSprite(HEALING);
+	_iconEmptyHitPoint->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::HEALING, "empty"));
+	_iconEmptyHitPoint->setScale(0.85f);
 }
 
 Info::~Info()
@@ -36,12 +101,45 @@ void Info::init()
 
 void Info::update(float deltatime)
 {
-	
+	stringstream ssStage;
+	ssStage << setw(2) << setfill('0') << _stageNumber;
+	_textStage->setString("STAGE-" + ssStage.str());
+
+
+	stringstream ssScore;
+	ssScore << setw(6) << setfill('0') << _scoreNumber;
+	_textScore->setString("SCORE-" + ssScore.str());
+
+	if (!_pauseTime)
+		time = _timeNumber - ((int)GameTime::getInstance()->getTotalGameTime() - _beginTime) / 1000;
+
+	stringstream ssTime;
+	ssTime << setw(4) << setfill('0') << time;
+	_textTime->setString("TIME " + ssTime.str());
+
+	stringstream ssLife;
+	ssLife << setw(2) << setfill('0') << _lifeNumber;
+	_textLife->setString("P-" + ssLife.str());
 }
 
 void Info::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 {
 	_border->render(spriteHandle);
+
+	_iconHeart->render(spriteHandle);
+
+	_textStage->draw(spriteHandle);
+
+	_textTime->draw(spriteHandle);
+
+	_textScore->draw(spriteHandle);
+
+	_textPlayer->draw(spriteHandle);
+
+	_textEnemy->draw(spriteHandle);
+
+	_textLife->draw(spriteHandle);
+	_textHeart->draw(spriteHandle);
 
 	if (_weaponSprite != nullptr)
 		_weaponSprite->render(spriteHandle);
@@ -54,31 +152,29 @@ void Info::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 	{
 		if (i < _playerHitPointNumber)
 		{
-			/*_iconPlayerHitPoint->setPosition(posPlayer);
-			_iconPlayerHitPoint->render(spriteHandle);*/
+			_iconPlayerHitPoint->setPosition(posPlayer);
+			_iconPlayerHitPoint->render(spriteHandle);
 		}
 		else
 		{
-			/*_iconEmptyHitPoint->setPosition(posPlayer);
-			_iconEmptyHitPoint->render(spriteHandle);*/
+			_iconEmptyHitPoint->setPosition(posPlayer);
+			_iconEmptyHitPoint->render(spriteHandle);
 		}
 
 		posPlayer = posPlayer + GVector2(10, 0);
 	}
-
-	/*_textEnemy->draw(spriteHandle);*/
 	auto posEnemy = GVector2(100, 53);
 	for (int i = 0; i < 16; i++)
 	{
 		if (i < _enemyHitPointNumber)
 		{
-			/*_iconEnemyHitPoint->setPosition(posEnemy);
-			_iconEnemyHitPoint->render(spriteHandle);*/
+			_iconEnemyHitPoint->setPosition(posEnemy);
+			_iconEnemyHitPoint->render(spriteHandle);
 		}
 		else
 		{
-		/*	_iconEmptyHitPoint->setPosition(posEnemy);
-			_iconEmptyHitPoint->render(spriteHandle);*/
+			_iconEmptyHitPoint->setPosition(posEnemy);
+			_iconEmptyHitPoint->render(spriteHandle);
 		}
 
 		posEnemy = posEnemy + GVector2(10, 0);
@@ -187,7 +283,7 @@ void Info::SetTime(int number)
 
 void Info::SetMaxWeapon(int num)
 {
-	/*switch(num)
+	switch(num)
 	{
 	case 2:
 		_maxWeaponSprite = SpriteManager::getInstance()->getSprite(ITEM);
@@ -203,7 +299,7 @@ void Info::SetMaxWeapon(int num)
 		num = 1;
 		_maxWeaponSprite = nullptr;
 		break;
-	}*/
+	}
 	_maxWeapon = num;
 }
 

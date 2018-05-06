@@ -57,11 +57,11 @@ bool PlayScene::init()
 {
 	auto player = new Player();
 	player->init();
-	player->setPosition(64 + 16, 64);
+	player->setPosition(200, 64);
 	player->getBounding();
 	this->_player = player;
 
-	_currentStage = MAP_STAGE_10;
+	_currentStage = MAP_STAGE_12;
 
 	initStage();
 
@@ -254,6 +254,12 @@ void PlayScene::release()
 
 bool PlayScene::checkEndGame()
 {
+	if (((Player*)_player)->getLifeNumber() < 0)
+	{
+		/*auto gameoverScene = new OverScene(this->getPlayer()->GetInfo());
+		SceneManager::getInstance()->replaceScene(gameoverScene);*/
+		/*return true;*/
+	}
 	return false;
 }
 

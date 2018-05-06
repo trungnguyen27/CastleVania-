@@ -8,14 +8,20 @@
 #include "../FrameWork/Animation.h"
 #include "../Framework/StopWatch.h"
 #include "QuadtreeNode.h"
-//#include "Heart.h"
-//#include "BigHeart.h"
+#include "Heart.h"
+#include "BigHeart.h"
+#include "Potion.h"
+#include "YellowBag.h"
+#include "RedBag.h"
+#include "StopTime.h"
+#include "HolyWater.h"
+#include "Dagger.h"
+
 //#include "Money.h"
 //#include "RopeUpgrade.h"
 //#include "Dagger.h"
 //#include "Boomerang.h"
 //#include "Axe.h"
-//#include "Potion.h"
 //#include "Cross.h"
 #include <ctime>
 class Candle : public BaseObject

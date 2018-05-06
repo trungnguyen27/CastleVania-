@@ -32,6 +32,14 @@ void SpriteManager::loadResource(LPD3DXSPRITE spriteHandle)
 	this->_listSprite.insert(pair<eID, Sprite*>(eID::PLAYER, pSprite));
 	this->loadSpriteInfo(eID::PLAYER, "Resources//Images//simon.txt");
 
+	pSprite = new Sprite(spriteHandle, L"Resources//Images//enemy.png");
+	this->_listSprite.insert(pair<eID, Sprite*>(eID::ENEMY, pSprite));
+	this->loadSpriteInfo(eID::ENEMY, "Resources//Images//enemy.txt");
+
+	pSprite = new Sprite(spriteHandle, L"Resources//Images//items.png");
+	this->_listSprite.insert(pair<eID, Sprite*>(eID::ITEM, pSprite));
+	this->loadSpriteInfo(eID::ITEM, "Resources//Images//items.txt");
+
 	pSprite = new Sprite(spriteHandle, L"Resources//Images//candle.png");
 	this->_listSprite.insert(pair<eID, Sprite*>(eID::CANDLE, pSprite));
 	this->loadSpriteInfo(eID::CANDLE, "Resources//Images//candle.txt");
@@ -39,6 +47,20 @@ void SpriteManager::loadResource(LPD3DXSPRITE spriteHandle)
 	pSprite = new Sprite(spriteHandle, L"Resources//Images//rope.png");
 	this->_listSprite.insert(pair<eID, Sprite*>(eID::ROPE, pSprite));
 	this->loadSpriteInfo(eID::ROPE, "Resources//Images//rope.txt");
+
+	pSprite = new Sprite(spriteHandle, L"Resources//Font//fontFull.png", 54, 6);
+	this->_listSprite[eID::FONTFULL] = pSprite;
+
+	pSprite = new Sprite(spriteHandle, L"Resources//Images//healing.png");
+	this->_listSprite.insert(pair<eID, Sprite*>(eID::HEALING, pSprite));
+	this->loadSpriteInfo(eID::HEALING, "Resources//Images//healing.txt");
+
+	pSprite = new Sprite(spriteHandle, L"Resources//Images//heart.png");
+	this->_listSprite[eID::HEART_ICON] = pSprite;
+
+	pSprite = new Sprite(spriteHandle, L"Resources//Images//effects.png");
+	this->_listSprite.insert(pair<eID, Sprite*>(eID::EFFECT, pSprite));
+	this->loadSpriteInfo(eID::EFFECT, "Resources//Images//effects.txt");
 
 	pSprite = loadXMLDoc(spriteHandle, L"Resources//Map//stage10.tmx");
 	pSprite->setOrigin(VECTOR2ZERO);

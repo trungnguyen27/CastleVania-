@@ -1,6 +1,6 @@
 #include "Water.h"
 
-Water::Water(int x, int y, int width, int height) : BaseObject(eID::WATER)
+Water::Water(int x, int y, int width, int height) : BaseObject(eID::WALL)
 {
 	this->_bound.left = x;
 	this->_bound.bottom = y;

@@ -10,11 +10,11 @@ Candle::Candle(int x, int y, eID item): BaseObject(CANDLE)
 	_animation = new Animation(_sprite, 0.1f);
 	_animation->addFrameRect(eID::CANDLE, "candle_01", "candle_02", NULL);
 
-	//_effect = SpriteManager::getInstance()->getSprite(eID::EFFECT);
-	//_effect->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::EFFECT, "hit_effect_1"));
-	//_effect->setPosition(x, y);
-	//_effectAnimation = new Animation(_effect, 0.1f);
-	//_effectAnimation->addFrameRect(EFFECT, "hit_effect_1", "hit_effect_2", "hit_effect_3", "hit_effect_4", NULL);
+	_effect = SpriteManager::getInstance()->getSprite(eID::EFFECT);
+	_effect->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::EFFECT, "hit_effect_1"));
+	_effect->setPosition(x, y);
+	_effectAnimation = new Animation(_effect, 0.1f);
+	_effectAnimation->addFrameRect(EFFECT, "hit_effect_1", "hit_effect_2", "hit_effect_3", "hit_effect_4", NULL);
 
 	_wasHit = false;
 }
@@ -23,8 +23,7 @@ void Candle::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 {
 	if (!_wasHit)
 		_animation->draw(spriteHandle, viewport);
-	else
-		_effectAnimation->draw(spriteHandle, viewport);
+	else _effectAnimation->draw(spriteHandle, viewport);
 }
 
 void Candle::update(float deltatime)
@@ -38,6 +37,33 @@ void Candle::update(float deltatime)
 		{
 			this->setStatus(DESTROY);
 			BaseObject* item = nullptr;
+			switch (_item) {
+				case POTION:
+					item = new Potion(this->getPositionX(), this->getPositionY());
+					break;
+				case HEART:
+					item = new Heart(this->getPositionX(), this->getPositionY());
+					break;
+				case BIGHEART:
+					item = new BigHeart(this->getPositionX(), this->getPositionY());
+					break;
+				case YELLOWBAG:
+					item = new YellowBag(this->getPositionX(), this->getPositionY());
+					break;
+				case REDBAG:
+					item = new RedBag(this->getPositionX(), this->getPositionY());
+				case HOLYWATER:
+					item = new HolyWater(this->getPositionX(), this->getPositionY());
+					break;
+				case STOPTIME:
+					item = new StopTime(this->getPositionX(), this->getPositionY());
+					break;
+				case DAGGER:
+					item = new Dagger(this->getPositionX(), this->getPositionY());
+					break;
+				default:
+					break;
+			}
 			/*if (_item == ITEM)
 			{
 				srand(time(0));

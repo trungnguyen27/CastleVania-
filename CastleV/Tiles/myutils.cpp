@@ -185,65 +185,41 @@ BaseObject* GetWall(xml_node item, int mapHeight)
 	return wall;
 }
 
-//BaseObject* GetDinosaur(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	x = x + width / 2;
-//	y = y + height / 2;
-//
-//	auto dinosaur = new Dinosaur(x, y);
-//	dinosaur->init();
-//	return dinosaur;
-//}
-//
-//BaseObject* GetTrident(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	x = x + width / 2;
-//	y = y + height / 2;
-//	BaseObject* trident;
-//	if (properties["half"] != "")
-//		trident = new Trident(x, y, false);
-//	else
-//		trident = new Trident(x, y);
-//	trident->init();
-//	return trident;
-//}
-//
-//BaseObject* GetBlueBat(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	x = x + width / 2;
-//	y = y + height / 2;
-//	auto blueBat = new BlueBat(x, y);
-//	blueBat->init();
-//	return blueBat;
-//}
-//
+BaseObject* GetMonkeyWall(xml_node item, int mapHeight)
+{
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+
+	auto monkeyWall = new MonkeyWall(x, y, width, height);
+	monkeyWall->init();
+	return monkeyWall;
+}
+
+BaseObject* GetFishmanWall(xml_node item, int mapHeight)
+{
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+
+	auto fishmanWall = new FishmanWall(x, y, width, height);
+	fishmanWall->init();
+	return fishmanWall;
+}
 BaseObject* GetCandle(xml_node item, int mapHeight)
 {
 	auto properties = GetObjectProperties(item);
@@ -258,149 +234,13 @@ BaseObject* GetCandle(xml_node item, int mapHeight)
 	x = x + width / 2;
 	y = y + height / 2;
 	BaseObject* candle = nullptr;
-	if (properties["item"] != "")
-		candle = new Candle(x, y, (eID) stoi(properties["item"]));
+	if (properties["Item"] != "")
+		candle = new Candle(x, y, (eID) stoi(properties["Item"]));
 	else
 		candle = new Candle(x, y);
 	candle->init();
 	return candle;
 }
-
-//BaseObject* GetBreakWall1(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	x = x + width / 2;
-//	y = y + height / 2;
-//	BaseObject* breakWall = nullptr;
-//	if (properties["item"] != "")
-//		breakWall = new BreakWall1(x, y, (eID)stoi(properties["item"]));
-//	else
-//		breakWall = new BreakWall1(x, y);
-//	breakWall->init();
-//	return breakWall;
-//}
-//
-//BaseObject* GetBreakWall(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto crownX = 2 * stoi(properties["crownX"]);
-//	auto crownY = mapHeight - 2 * stoi(properties["crownY"]) - 16;
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	x = x + width / 2;
-//	y = y + height / 4;
-//	auto breakWall = new BreakWall(x, y, crownX, crownY);
-//	breakWall->init();
-//	return breakWall;
-//}
-//
-//BaseObject* GetTreasure(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto treasureX = 2 * stoi(properties["appearx"]);
-//	auto treasureY = mapHeight - 2 * stoi(properties["appeary"]) - height;
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	x = x + width / 2;
-//	y = y + height / 2;
-//
-//	treasureX = treasureX + width / 2;
-//	treasureY = treasureY + height / 2;
-//
-//	auto treasure = new Treasure(x, y, treasureX, treasureY);
-//	treasure->init();
-//	return treasure;
-//}
-//
-//BaseObject* GetSoldier(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	x = x + width / 2;
-//	y = y + height / 2;
-//
-//	auto ActiveBoundX = 2 * stoi(properties["ActiveBoundX"]);
-//
-//	ActiveBoundX = ActiveBoundX + width / 2;
-//
-//	auto soldier = new Soldier(x, y, ActiveBoundX);
-//	soldier->init();
-//	return soldier;
-//}
-//
-//BaseObject* GetMedusa(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	x = x + width / 2;
-//	y = y + height / 2;
-//
-//	auto checkPoint = 2 * stoi(properties["checkPoint"]);
-//
-//	auto next = (eID)stoi(properties["next"]);
-//
-//	auto medusa = new Medusa(x, y, checkPoint, next);
-//	medusa->init();
-//	return medusa;
-//}
-//
-//BaseObject* GetStairEnd(xml_node item, int mapHeight)
-//{
-//	auto properties = GetObjectProperties(item);
-//	if (properties.size() == 0)
-//		return nullptr;
-//
-//	auto width = 2 * stoi(properties["width"]);
-//	auto height = 2 * stoi(properties["height"]);
-//
-//	auto x = 2 * stoi(properties["x"]);
-//	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
-//
-//	auto direct = false;
-//	if (properties["direct"] == "true")
-//		direct = true;
-//
-//	auto stair = new StairEnd(x, y, width, height, direct);
-//	stair->init();
-//	return stair;
-//}
-
 BaseObject* GetFloatingWall(xml_node item, int mapHeight)
 {
 	auto properties = GetObjectProperties(item);
@@ -428,16 +268,269 @@ BaseObject* GetFloatingWall(xml_node item, int mapHeight)
 	return floatingWall;
 }
 
+BaseObject* GetBat(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+	auto bat = new Bat(x, y);
+	bat->init();
+	return bat;
+}
+
+BaseObject* GetFishman(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+	bool isLeft = false;
+	auto value = properties["isLeft"];
+	if (value == "true")
+		isLeft = true;
+
+	auto fishman = new Fishman(x, y, isLeft);
+	fishman->init();
+	return fishman;
+}
+
+BaseObject* GetYellowBag(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto yelloBag = new YellowBag(x, y);
+	yelloBag->init();
+	return yelloBag;
+}
+BaseObject* GetRedBag(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto redBag = new RedBag(x, y);
+	redBag->init();
+	return redBag;
+}
+BaseObject* GetHeart(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto heart = new Heart(x, y);
+	heart->init();
+	return heart;
+}
+BaseObject* GetBigHeart(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto bigHeart = new BigHeart(x, y);
+	bigHeart->init();
+	return bigHeart;
+}
+
+BaseObject* GetHolyWater(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto holyWater = new HolyWater(x, y);
+	holyWater->init();
+	return holyWater;
+}
+
+BaseObject* GetDagger(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto dagger = new Dagger(x, y);
+	dagger->init();
+	return dagger;
+}
+
+BaseObject* GetFood(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto food = new Food(x, y);
+	food->init();
+	return food;
+}
+
+BaseObject* GetFrankenstein(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto frankenstein = new Frankenstein(x, y);
+	frankenstein->init();
+	return frankenstein;
+}
+
+BaseObject* GetDinosaur(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto dinosaur = new Dinosaur(x, y);
+	dinosaur->init();
+	return dinosaur;
+}
+
+BaseObject* GetMonkey(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto monkey = new Monkey(x, y, 200);
+	monkey->init();
+	return monkey;
+}
+
+
+
+BaseObject* GetStopTime(xml_node item, int mapHeight) {
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+
+
+	auto stopTime = new StopTime(x, y);
+	stopTime->init();
+	return stopTime;
+}
+
 BaseObject* GetObjectByType(xml_node item, eID type, int mapHeight)
 {
 	switch (type)
 	{
 		case WALL:
 			return GetWall(item, mapHeight);
+		case FISHMAN_WALL:
+			return GetFishmanWall(item, mapHeight);
 		case WATER:
 			return GetWater(item, mapHeight);
 		case FLOATING_WALL:
 			return GetFloatingWall(item, mapHeight);
+		case MONKEY_WALL:
+			return GetMonkeyWall(item, mapHeight);
 		case START:
 			return GetStart(item, mapHeight);
 		case END:
@@ -446,6 +539,16 @@ BaseObject* GetObjectByType(xml_node item, eID type, int mapHeight)
 			return GetRevive(item, mapHeight);
 		case CANDLE:
 			return GetCandle(item, mapHeight);
+		case BAT:
+			return GetBat(item, mapHeight);
+		case FISHMAN:
+			return GetFishman(item, mapHeight);
+		case FRANKENSTEIN:
+			return GetFrankenstein(item, mapHeight);
+		case DINOSAUR:
+			return GetDinosaur(item, mapHeight);
+		case MONKEY:
+			return GetMonkey(item, mapHeight);
 		default:
 			return nullptr;
 	}
@@ -497,3 +600,5 @@ list<BaseObject*>* GetListObjectFromFile(const string path)
 	}
 	return listObj;
 }
+
+

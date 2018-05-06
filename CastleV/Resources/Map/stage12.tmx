@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="32" height="7" tilewidth="32" tileheight="32" infinite="0" nextobjectid="67">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="32" height="7" tilewidth="32" tileheight="32" infinite="0" nextobjectid="82">
  <tileset firstgid="1" name="stage12" tilewidth="32" tileheight="32" tilecount="224" columns="32">
   <image source="stage12.png" width="1024" height="240"/>
  </tileset>
@@ -248,24 +248,92 @@
   <object id="20" name="Wall" type="40" x="751.939" y="161.152" width="16" height="13.5"/>
   <object id="21" name="Wall" type="40" x="736.439" y="159.152" width="15.5" height="17.5"/>
   <object id="44" name="Wall" type="40" x="16.6667" y="106" width="719.333" height="5.33333"/>
-  <object id="45" name="Candle" type="61" x="28.6667" y="142" width="5.66667" height="6.33333"/>
-  <object id="47" name="Candle" type="61" x="93.1667" y="141.167" width="5.66667" height="6.33333"/>
-  <object id="48" name="Candle" type="61" x="148.5" y="140.167" width="5.66667" height="6.33333"/>
-  <object id="49" name="Candle" type="61" x="196.5" y="139.167" width="5.66667" height="6.33333"/>
-  <object id="50" name="Candle" type="61" x="249.167" y="139.5" width="5.66667" height="6.33333"/>
-  <object id="51" name="Candle" type="61" x="288.833" y="139.167" width="5.66667" height="6.33333"/>
-  <object id="53" name="Candle" type="61" x="335.833" y="138.833" width="5.66667" height="6.33333"/>
-  <object id="54" name="Candle" type="61" x="410.167" y="138.167" width="5.66667" height="6.33333"/>
-  <object id="55" name="Candle" type="61" x="473.167" y="137.167" width="5.66667" height="6.33333"/>
-  <object id="56" name="Candle" type="61" x="519.167" y="136.833" width="5.66667" height="6.33333"/>
-  <object id="57" name="Candle" type="61" x="575.5" y="137.167" width="5.66667" height="6.33333"/>
-  <object id="58" name="Candle" type="61" x="643.167" y="135.167" width="5.66667" height="6.33333"/>
-  <object id="59" name="Candle" type="61" x="731.5" y="134.833" width="5.66667" height="6.33333"/>
-  <object id="60" name="Candle" type="61" x="797.5" y="106.833" width="5.66667" height="6.33333"/>
-  <object id="61" name="Candle" type="61" x="857.167" y="143.5" width="5.66667" height="6.33333"/>
-  <object id="62" name="Candle" type="61" x="926.167" y="107.5" width="5.66667" height="6.33333"/>
-  <object id="63" name="Candle" type="61" x="987.167" y="131.167" width="5.66667" height="6.33333"/>
-  <object id="64" name="START" type="50" x="28.0833" y="186.75" width="6" height="6">
+  <object id="45" name="Candle" type="61" x="28.6667" y="142" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="47" name="Candle" type="61" x="93.1667" y="141.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="21"/>
+   </properties>
+  </object>
+  <object id="48" name="Candle" type="61" x="148.5" y="140.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="49" name="Candle" type="61" x="196.5" y="139.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="50" name="Candle" type="61" x="249.167" y="139.5" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="51" name="Candle" type="61" x="288.833" y="139.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="85"/>
+   </properties>
+  </object>
+  <object id="53" name="Candle" type="61" x="335.833" y="138.833" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="82"/>
+   </properties>
+  </object>
+  <object id="54" name="Candle" type="61" x="410.167" y="138.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="55" name="Candle" type="61" x="473.167" y="137.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="56" name="Candle" type="61" x="519.167" y="136.833" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="57" name="Candle" type="61" x="582" y="136.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="82"/>
+   </properties>
+  </object>
+  <object id="58" name="Candle" type="61" x="643.167" y="135.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="85"/>
+   </properties>
+  </object>
+  <object id="59" name="Candle" type="61" x="731.5" y="134.833" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="60" name="Candle" type="61" x="797.5" y="106.833" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="82"/>
+   </properties>
+  </object>
+  <object id="61" name="Candle" type="61" x="857.167" y="143.5" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="62" name="Candle" type="61" x="926.167" y="107.5" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="82"/>
+   </properties>
+  </object>
+  <object id="63" name="Candle" type="61" x="987.167" y="131.167" width="5.66667" height="6.33333">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="64" name="START" type="50" x="827.765" y="153.492" width="6" height="6">
    <properties>
     <property name="status" value="0"/>
    </properties>
@@ -281,5 +349,11 @@
     <property name="status" value="0"/>
    </properties>
   </object>
+  <object id="69" name="Frankenstein" type="73" x="985" y="200.5" width="6.5" height="6.75"/>
+  <object id="71" name="Dinosaur" type="74" x="292.833" y="163.5" width="8" height="9.33333"/>
+  <object id="74" name="Dinosaur" type="74" x="738" y="163.833" width="8" height="9.33333"/>
+  <object id="75" name="Monkey" type="76" x="874.667" y="135.667" width="7" height="6.33333"/>
+  <object id="79" name="MonkeyWall" type="46" x="759.333" y="47.3333" width="8.33333" height="114"/>
+  <object id="80" name="MonkeyWall" type="46" x="1023.5" y="-0.5" width="10" height="207"/>
  </objectgroup>
 </map>

@@ -13,8 +13,13 @@
 #include <list>
 #include "Info.h"
 #include "Rope.h"
-#include "../Framework/SceneManager.h"
+#include "Bat.h"
+#include "Fishman.h"
 #include "End.h"
+#include "Weapon.h"
+#include "Frankenstein.h"
+#include "Monkey.h"
+#include "../Framework/SceneManager.h"
 #include "../Framework/StageManager.h"
 #include "../Framework/SoundManager.h"
 #include <thread>
@@ -103,6 +108,7 @@ public:
 private:
 	map<int, Animation*> _animations;
 	map<string, IComponent*> _componentList;
+	vector<Weapon*> _listWeapon;
 
 	float _movingSpeed;
 	StopWatch* _stairStopWatch;
@@ -128,8 +134,6 @@ private:
 	bool _isRope;
 	StopWatch* _attackStopWatch;
 	StopWatch* _weaponStopWatch;
-	
-	//vector<Weapon*> _listWeapon;
 
 	BaseObject* _stairEnd;
 	GVector2 _backPos;

@@ -107,7 +107,7 @@ void Player::init()
 	_info->SetPlayerHitPoint(16);
 	_info->SetEnemyHitPoint(16);
 	_info->ActiveTime();
-	_info->SetTime(300);
+	_info->SetTime(400);
 	this->resetValues();
 }
 
@@ -122,119 +122,7 @@ void Player::updateAttackStatus(float dt)
 			if (_isRope)
 				this->_rope->restart();
 		}
-		//if (_isAttacking && !_isRope && _weaponStopWatch->isTimeLoop(ATTACK_TIME / 2) && _listWeapon.size() < _info->GetMaxWeapon())
-		//{
-		//	//Weapon* weapon = nullptr;
-		//	switch (_info->GetCurrentWeapon())
-		//	{
-		//		case DAGGER:
-		//			{
-		//				/*if (_info->GetHeart() > 0 && !SoundManager::getInstance()->IsPlaying(DAGGER_SOUND))
-		//				{
-		//					if (this->getScale().x > 0)
-		//						weapon = new DaggerWeapon(this->getPositionX() + 16, this->getPositionY() + 40, true);
-		//					else
-		//						weapon = new DaggerWeapon(this->getPositionX() - 16, this->getPositionY() + 40, false);
-		//					_info->SetHeart(_info->GetHeart() - 1);
-
-		//					SoundManager::getInstance()->Play(DAGGER_SOUND);
-		//				}*/
-		//				break;
-		//			}
-		//		case BOOMERANG:
-		//			{
-		//				if (_info->GetHeart() > 0)
-		//				{
-		//					/*if (this->getScale().x > 0)
-		//						weapon = new BoomerangWeapon(this->getPositionX() + 16, this->getPositionY() + 30, true);
-		//					else
-		//						weapon = new BoomerangWeapon(this->getPositionX() - 16, this->getPositionY() + 30, false);
-		//					_info->SetHeart(_info->GetHeart() - 1);*/
-		//				}
-		//				break;
-		//			}
-		//		case AXE:
-		//			{
-		//				if (_info->GetHeart() > 0)
-		//				{
-		//				/*	if (this->getScale().x > 0)
-		//						weapon = new AxeWeapon(this->getPositionX() + 16, this->getPositionY() + 40, true);
-		//					else
-		//						weapon = new AxeWeapon(this->getPositionX() - 16, this->getPositionY() + 40, false);
-		//					_info->SetHeart(_info->GetHeart() - 1);*/
-		//				}
-		//				break;
-		//			}
-		//		default:
-		//			break;
-		//	}
-		/*	if (weapon != nullptr)
-			{
-				weapon->init();
-				_listWeapon.push_back(weapon);
-			}*/
-		//}
 	}
-	/*if (!_listWeapon.empty())
-	{
-		auto viewport = SceneManager::getInstance()->getCurrentScene()->getViewport();
-		RECT viewportBounding = viewport->getBounding();
-		auto i = 0;
-		while (i < _listWeapon.size())
-		{
-			auto obj = _listWeapon[i];
-			if (obj->getId() == BOOMERANG)
-			{
-				if (obj->getPositionX() + 16 > viewportBounding.right || obj->getPositionX() - 16 < viewportBounding.left)
-				{
-					if (!((BoomerangWeapon*)obj)->IsBoomerangComeBack())
-					{
-						((BoomerangWeapon*)obj)->ComeBack();
-						i++;
-						continue;
-					}
-				}
-
-				if (((BoomerangWeapon*)obj)->IsBoomerangComeBack())
-				{
-					auto weaponCollision = _listWeapon[i]->getCollisionBody();
-					eDirection direction;
-					if (weaponCollision->checkCollision(this, direction, dt, false))
-					{
-						_listWeapon.erase(_listWeapon.begin() + i);
-						obj->release();
-						delete obj;
-						continue;
-					}
-				}
-			}
-			if (!isIntersectedInGame(viewportBounding, _listWeapon[i]->getBounding()) && _listWeapon[i]->getBounding().top < viewportBounding.top)
-			{
-				_listWeapon.erase(_listWeapon.begin() + i);
-				obj->release();
-				delete obj;
-			}
-			else
-				i++;
-		}
-	}*/
-
-	//for (auto weapon: _listWeapon)
-	//{
-	//	switch (weapon->getId())
-	//	{
-	//		case BOOMERANG:
-	//			if (!SoundManager::getInstance()->IsPlaying(BOOMERANG_SOUND))
-	//				SoundManager::getInstance()->Play(BOOMERANG_SOUND);
-	//			break;
-	//		case AXE:
-	//			if (!SoundManager::getInstance()->IsPlaying(AXE_SOUND))
-	//				SoundManager::getInstance()->Play(AXE_SOUND);
-	//			break;
-	//		default:
-	//			break;
-	//	}
-	//}
 }
 
 
@@ -310,6 +198,8 @@ void Player::update(float deltatime)
 	{
 		_protectTime -= deltatime;
 	}
+
+	_info->update(deltatime);
 
 	this->checkPosition();
 
@@ -455,7 +345,7 @@ void Player::updateCurrentAnimateIndex()
 void Player::resetValues()
 {
 	_info->ActiveTime();
-	//_listWeapon.clear();
+	_listWeapon.clear();
 	preWall = nullptr;
 	_endMoviePosX = -1;
 	_isPlayingMovie = false;
@@ -753,7 +643,7 @@ float Player::checkCollision(BaseObject* object, float dt)
 		return 0.0f;
 
 	auto collisionBody = (CollisionBody*)_componentList["CollisionBody"];
-	//auto ropeCollisionBody = _rope->getCollisionBody();
+	auto ropeCollisionBody = _rope->getCollisionBody();
 
 	eID objectId = object->getId();
 	eDirection direction;
@@ -818,7 +708,164 @@ float Player::checkCollision(BaseObject* object, float dt)
 	}
 	else if (objectId == CANDLE)
 	{
-	
+		if (ropeCollisionBody->checkCollision(object, direction, dt, false))
+		{
+			((Candle*)object)->wasHit();
+		}
+	}
+	else if (objectId == HEART) {
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			//_info->SetHeart(_info->GetHeart() + 1);
+			object->setStatus(DESTROY);
+		}
+	}
+	else if (objectId == BIGHEART) {
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			//_info->SetHeart(_info->GetHeart() + 1);
+			object->setStatus(DESTROY);
+		}
+	}
+	else if (objectId == YELLOWBAG) {
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			object->setStatus(DESTROY);
+		}
+	}
+	else if (objectId == REDBAG) {
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			object->setStatus(DESTROY);
+		}
+	}
+	else if (objectId == STOPTIME) {
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			object->setStatus(DESTROY);
+		}
+	}
+	else if (objectId == POTION)
+	{
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			_protectTime = 5000;
+			object->setStatus(DESTROY);
+		}
+	}
+	else if (objectId == HOLYWATER)
+	{
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			_protectTime = 5000;
+			object->setStatus(DESTROY);
+		}
+	}
+	else if (objectId == DAGGER)
+	{
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			if (_info->GetCurrentWeapon() != DAGGER)
+				_info->SetMaxWeapon(1);
+			_info->SetWeapon(DAGGER);
+			object->setStatus(DESTROY);
+		}
+	}
+	else if (objectId == FIREBALL)
+	{
+		if (!((FireBall*)object)->isDead() && _protectTime <= 0)
+		{
+			if (collisionBody->checkCollision(object, direction, dt, false))
+			{
+				float moveX, moveY;
+				if (collisionBody->isColliding(object, moveX, moveY, dt))
+				{
+					collisionBody->updateTargetPosition(object, direction, false, GVector2(moveX, moveY));
+				}
+				behit(direction);
+			}
+			if (ropeCollisionBody->checkCollision(object, direction, dt, false))
+			{
+				((FireBall*)object)->wasHit();
+				/*if (!SoundManager::getInstance()->IsPlaying(COLISION_SOUND))
+					SoundManager::getInstance()->Play(COLISION_SOUND);*/
+			}
+			if (this->weaponCheckCollision(object, direction, dt, false))
+			{
+				((FireBall*)object)->wasHit();
+			}
+		}
+	}
+	else if (objectId == BAT)
+	{
+		if (!((Bat*)object)->isActive())
+		{
+			auto objPos = object->getPosition();
+			auto pos = this->getPosition();
+			if (getdistance(objPos, pos) < 500 && abs(pos.x - objPos.x) < 500)
+			{
+				((Bat*)object)->Active(pos.x > objPos.x);
+			}
+		}
+
+		if (!((Bat*)object)->isDead() && _protectTime <= 0)
+		{
+			if (collisionBody->checkCollision(object, direction, dt, false))
+			{
+				float moveX, moveY;
+				if (collisionBody->isColliding(object, moveX, moveY, dt))
+				{
+					collisionBody->updateTargetPosition(object, direction, false, GVector2(moveX, moveY));
+				}
+				behit(direction);
+			}
+		/*	if (ropeCollisionBody->checkCollision(object, direction, dt, false))
+			{
+				((BlueBat*)object)->wasHit();
+				if (!SoundManager::getInstance()->IsPlaying(COLISION_SOUND))
+					SoundManager::getInstance()->Play(COLISION_SOUND);
+			}
+			if (this->weaponCheckCollision(object, direction, dt, false))
+			{
+				((BlueBat*)object)->wasHit();
+			}
+			if (((BlueBat*)object)->isDead())
+				_info->AddScore(200);*/
+		}
+	}
+	else if (objectId == FISHMAN) {
+		Fishman* fishman = (Fishman*)object;
+		if (!fishman->isActive())
+		{
+			auto objPos = object->getPosition();
+			auto pos = this->getPosition();
+			bool active = false;
+			if (fishman->isLeft())
+				active = objPos.x - pos.x < 100;
+			else active = pos.x - objPos.x > 100;
+			fishman->Active(active);
+		}
+		if (!(fishman->isDead() && _protectTime <= 0))
+		{
+			if (collisionBody->checkCollision(object, direction, dt, false))
+			{
+				float moveX, moveY;
+				if (collisionBody->isColliding(object, moveX, moveY, dt))
+				{
+					collisionBody->updateTargetPosition(object, direction, false, GVector2(moveX, moveY));
+				}
+				behit(direction);
+			}
+			if (ropeCollisionBody->checkCollision(object, direction, dt, false))
+			{
+				object->setStatus(DESTROY);
+			}
+		}
+	}
+	else if (objectId == MONKEY)
+	{
+		Monkey* monkey = (Monkey*)object;
+		monkey->updatePlayerLocation(this->getPosition());
 	}
 	else if (objectId == WATER) {
 		if (collisionBody->checkCollision(object, direction, dt, false))
@@ -872,6 +919,60 @@ float Player::checkCollision(BaseObject* object, float dt)
 			}
 		}
 	}
+	else if (objectId == FRANKENSTEIN)
+	{
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+		
+			
+		}
+		int playerDir = 1;
+		auto objPos = object->getPosition();
+		auto pos = this->getPosition();
+		Frankenstein* frankenstein = (Frankenstein*)object;
+		if ((this->getPositionX() - object->getPositionX() > 0))
+			playerDir = -1;
+		else playerDir = 1;
+		if (!((Frankenstein*)object)->isActive())
+		{
+			if (getdistance(objPos, pos) < 200 && abs(pos.x - objPos.x) < 200)
+			{
+				frankenstein->Active(true);
+				frankenstein->moveToPlayer(playerDir);
+			}
+		}
+		else {
+			if (getdistance(objPos, pos) > 200 && abs(pos.x - objPos.x) > 200)
+			{
+				frankenstein->Active(false);
+			}
+			frankenstein->moveToPlayer(playerDir);
+		}
+	}
+	else if (objectId == DINOSAUR)
+	{
+		Dinosaur* dinosaur = (Dinosaur*)object;
+		if (!dinosaur->isActive())
+		{
+			auto objPos = object->getPosition();
+			auto pos = this->getPosition();
+			bool active = objPos.x - pos.x < 100;	
+			dinosaur->Active(active);
+		}
+		if (collisionBody->checkCollision(object, direction, dt, false))
+		{
+			float moveX, moveY;
+			if (collisionBody->isColliding(object, moveX, moveY, dt))
+			{
+				collisionBody->updateTargetPosition(object, direction, false, GVector2(moveX, moveY));
+			}
+			behit(direction);
+		}
+		if (ropeCollisionBody->checkCollision(object, direction, dt, false))
+		{
+			dinosaur->wasHit(1);
+		}
+	}
 	else if (objectId == END)
 	{
 		if (collisionBody->checkCollision(object, direction, dt, false))
@@ -891,10 +992,10 @@ float Player::checkCollision(BaseObject* object, float dt)
 			switch (_currentStage)
 			{
 				case MAP_STAGE_10:
-					//_info->SetStage(7);
+					_info->SetStage(10);
 					break;
 				case MAP_STAGE_12:
-					//_info->SetStage(6);
+					_info->SetStage(12);
 					break;
 				default:
 					//_info->SetStage(4);
@@ -949,7 +1050,6 @@ void Player::moveRight()
 	auto move = (Movement*)this->_componentList["Movement"];
 	move->setVelocity(GVector2(_movingSpeed, move->getVelocity().y));
 }
-
 
 void Player::moveDown()
 {
@@ -1010,8 +1110,6 @@ void Player::moveDown()
 		_stairStopWatch->restart();
 	}
 }
-
-
 
 void Player::moveUp()
 {
@@ -1108,16 +1206,11 @@ void Player::jump()
 
 	auto g = (Gravity*)this->_componentList["Gravity"];
 	g->setStatus(eGravityStatus::FALLING__DOWN);
-
-	//SoundManager::getInstance()->Play(eSoundId::JUMP_SOUND);
 }
 
 void Player::behit(eDirection direct)
 {
 	_protectTime = PROTECT_TIME;
-
-	/*if (!SoundManager::getInstance()->IsPlaying(HIT_SOUND))
-		SoundManager::getInstance()->Play(HIT_SOUND);*/
 
 	if (direct == NONE)
 	{
@@ -1220,8 +1313,6 @@ void Player::die()
 {
 	if (!this->isInStatus(eStatus::DIE))
 		this->setStatus(eStatus::DIE);
-	/*if (!SoundManager::getInstance()->IsPlaying(DIE_SOUND))
-		SoundManager::getInstance()->Play(DIE_SOUND);*/
 
 	auto move = (Movement*)this->_componentList["Movement"];
 	move->setVelocity(GVector2(-MOVE_SPEED * (this->getScale().x / SCALE_FACTOR), JUMP_VEL));

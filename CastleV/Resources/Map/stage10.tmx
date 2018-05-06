@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="48" height="7" tilewidth="32" tileheight="32" infinite="0" nextobjectid="54">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="48" height="7" tilewidth="32" tileheight="32" infinite="0" nextobjectid="79">
  <tileset firstgid="1" name="stage10" tilewidth="32" tileheight="32" tilecount="336" columns="48">
   <image source="stage10.png" width="1537" height="240"/>
  </tileset>
@@ -359,7 +359,7 @@
     <property name="status" value="8"/>
    </properties>
   </object>
-  <object id="12" name="Floating_Wall" type="43" x="895.379" y="177.872" width="64" height="14">
+  <object id="12" name="Floating_Wall" type="41" x="895.379" y="177.872" width="64" height="14">
    <properties>
     <property name="ActiveBoundX" value="770"/>
     <property name="Reversed" type="bool" value="false"/>
@@ -376,7 +376,7 @@
     <property name="status" value="2"/>
    </properties>
   </object>
-  <object id="23" name="START" type="50" x="15.9621" y="151.038" width="8" height="8.66667">
+  <object id="23" name="START" type="50" x="16.4623" y="146.872" width="8" height="8.66667">
    <properties>
     <property name="status" value="0"/>
    </properties>
@@ -386,41 +386,163 @@
     <property name="status" value="0"/>
    </properties>
   </object>
-  <object id="27" name="Floating_Wall" type="43" x="320.667" y="179.106" width="64" height="14">
+  <object id="27" name="Floating_Wall" type="41" x="320.667" y="179.106" width="64" height="14">
    <properties>
     <property name="ActiveBoundX" value="222"/>
     <property name="Reversed" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="29" name="Floating_Wall" type="43" x="1100" y="176.917" width="64" height="14">
+  <object id="29" name="Floating_Wall" type="41" x="1100" y="176.917" width="64" height="14">
    <properties>
     <property name="ActiveBoundX" value="990"/>
     <property name="Reversed" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="30" name="Floating_Wall" type="43" x="1133.33" y="139.667" width="64" height="14">
+  <object id="30" name="Floating_Wall" type="41" x="1114.83" y="149.167" width="64" height="14">
    <properties>
     <property name="ActiveBoundX" value="1260"/>
     <property name="Reversed" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="34" name="Candle" type="61" x="35.462" y="105" width="6" height="6"/>
-  <object id="35" name="Candle" type="61" x="93.75" y="105" width="6" height="6"/>
-  <object id="36" name="Candle" type="61" x="152.25" y="104.75" width="6" height="6"/>
-  <object id="37" name="Candle" type="61" x="221.167" y="103.167" width="6" height="6"/>
-  <object id="38" name="Candle" type="61" x="310" y="143.667" width="6" height="6"/>
-  <object id="39" name="Candle" type="61" x="353" y="142.667" width="6" height="6"/>
-  <object id="40" name="Candle" type="61" x="410.25" y="103.333" width="6" height="6"/>
-  <object id="41" name="Candle" type="61" x="465.962" y="102.454" width="6" height="6"/>
-  <object id="43" name="Candle" type="61" x="535.667" y="103.167" width="6" height="6"/>
-  <object id="44" name="Candle" type="61" x="603.583" y="102" width="6" height="6"/>
-  <object id="45" name="Candle" type="61" x="671.212" y="68.4545" width="6" height="6"/>
-  <object id="46" name="Candle" type="61" x="730.962" y="67.7045" width="6" height="6"/>
-  <object id="47" name="Candle" type="61" x="1243.55" y="122.454" width="6" height="6"/>
-  <object id="48" name="Candle" type="61" x="1191.21" y="131.788" width="6" height="6"/>
-  <object id="50" name="Candle" type="61" x="1145.21" y="124.121" width="6" height="6"/>
-  <object id="51" name="Candle" type="61" x="1310.21" y="122.454" width="6" height="6"/>
-  <object id="52" name="Candle" type="61" x="1376.55" y="136.788" width="6" height="6"/>
-  <object id="53" name="Candle" type="61" x="1440.21" y="117.454" width="6" height="6"/>
+  <object id="34" name="Candle" type="61" x="35.462" y="105" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="35" name="Candle" type="61" x="93.75" y="105" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="21"/>
+   </properties>
+  </object>
+  <object id="36" name="Candle" type="61" x="152.25" y="104.75" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="82"/>
+   </properties>
+  </object>
+  <object id="37" name="Candle" type="61" x="221.167" y="103.167" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="87"/>
+   </properties>
+  </object>
+  <object id="39" name="Candle" type="61" x="352.667" y="143" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="82"/>
+   </properties>
+  </object>
+  <object id="40" name="Candle" type="61" x="410.25" y="103.333" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="41" name="Candle" type="61" x="465.962" y="102.454" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="43" name="Candle" type="61" x="535.667" y="103.167" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="44" name="Candle" type="61" x="603.583" y="102" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="45" name="Candle" type="61" x="672.212" y="67.1212" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="46" name="Candle" type="61" x="730.962" y="67.7045" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="88"/>
+   </properties>
+  </object>
+  <object id="47" name="Candle" type="61" x="1243.55" y="122.454" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="48" name="Candle" type="61" x="1191.21" y="131.788" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="82"/>
+   </properties>
+  </object>
+  <object id="50" name="Candle" type="61" x="1145.21" y="124.121" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="51" name="Candle" type="61" x="1310.21" y="122.454" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="52" name="Candle" type="61" x="1376.55" y="136.788" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="85"/>
+   </properties>
+  </object>
+  <object id="53" name="Candle" type="61" x="1440.21" y="117.454" width="6" height="6">
+   <properties>
+    <property name="Item" type="int" value="81"/>
+   </properties>
+  </object>
+  <object id="54" name="Bat" type="71" x="288.212" y="147.954" width="7" height="7.5"/>
+  <object id="55" name="Bat" type="71" x="615.167" y="135.917" width="7" height="7.5"/>
+  <object id="56" name="Bat" type="71" x="787.212" y="72.4545" width="9" height="9.5"/>
+  <object id="57" name="Bat" type="71" x="1078.21" y="129.454" width="9" height="9.5"/>
+  <object id="58" name="Bat" type="71" x="1421.21" y="123.454" width="8" height="8"/>
+  <object id="62" name="Fishman" type="72" x="415.212" y="228.954" width="10" height="7.5">
+   <properties>
+    <property name="isLeft" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="63" name="Fishman" type="72" x="523.962" y="227.454" width="7" height="8.5">
+   <properties>
+    <property name="isLeft" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="64" name="Fishman" type="72" x="799.712" y="227.454" width="6" height="7">
+   <properties>
+    <property name="isLeft" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="65" name="Fishman" type="72" x="1172.21" y="225.954" width="8.5" height="8">
+   <properties>
+    <property name="isLeft" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="67" name="Fishman" type="72" x="301.083" y="225.75" width="9.5" height="10.5">
+   <properties>
+    <property name="isLeft" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="68" name="Fishman" type="72" x="445.167" y="228.75" width="10" height="7.5">
+   <properties>
+    <property name="isLeft" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="69" name="Fishman_Wall" type="42" x="904.962" y="127.954" width="22.5" height="7"/>
+  <object id="70" name="Fishman" type="72" x="911.879" y="222.787" width="7" height="9">
+   <properties>
+    <property name="isLeft" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="71" name="Fishman" type="72" x="1069.63" y="217.371" width="8" height="8.5">
+   <properties>
+    <property name="isLeft" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="72" name="Fishman_Wall" type="42" x="1025.32" y="138.522" width="33.4318" height="2.61364"/>
+  <object id="73" name="Fishman_Wall" type="42" x="1056.29" y="118.621" width="54.5" height="2"/>
+  <object id="76" x="57.8787" y="351.454" height="1.33333"/>
+  <object id="77" name="Fishman_Wall" type="42" x="1024.47" y="113.299" width="1.97727" height="20.9773"/>
+  <object id="78" name="Candle" type="61" x="300.462" y="143.704" width="5.75" height="6.5">
+   <properties>
+    <property name="Item" type="int" value="85"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
