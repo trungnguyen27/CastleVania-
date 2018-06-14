@@ -28,6 +28,7 @@
 #include "../Object/FireBall.h"
 #include "../Object/Monkey.h"
 #include "../Object/MonkeyWall.h"
+#include "../Object/BreakWall.h"
 #include <ctime>
 using namespace pugi;
 
@@ -41,6 +42,7 @@ BaseObject* GetCandle(xml_node item, int mapHeight);
 BaseObject* GetBat(xml_node item, int mapHeight);
 BaseObject* GetFishman(xml_node item, int mapHeight);
 BaseObject* GetWall(xml_node item, int mapHeight);
+BaseObject* GetBreakWall(xml_node item, int mapHeight);
 BaseObject* GetFishmanWall(xml_node item, int mapHeight);
 BaseObject* GetMonkeyWall(xml_node item, int mapHeight);
 BaseObject* GetYellowBag(xml_node item, int mapHeight);

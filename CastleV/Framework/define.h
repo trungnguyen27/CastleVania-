@@ -55,12 +55,14 @@ enum eID
 
 	WEAPON = 20,
 	DAGGER = 21,
-	
+	BOOMERANG = 22,
+	AXE=23,
 
 	ROPE = 30,
 	EFFECT = 31,
 	HEALING = 32,
 	SPLASH = 33,
+	DINOSAUR_BODY = 34,
 
 	WALL = 40,
 	FLOATING_WALL = 41,
@@ -68,6 +70,7 @@ enum eID
 	WATER = 44,
 	FLOATING_WALL_REVERSED = 45,
 	MONKEY_WALL = 46,
+	BREAK_WALL = 47,
 
 	START = 50,
 	END = 51,
@@ -95,7 +98,7 @@ enum eID
 	STOPTIME = 87,
 	HOLYWATER=88,
 	FOOD = 89,
-
+	BALL = 90,
 };
 
 enum eStatus
@@ -167,6 +170,13 @@ enum eSoundId
 	GET_ITEM,
 
 	HIDDEN_ITEM_APPEAR,
+
+	FISHMAN_JUMP,
+	FISHMAN_FALL,
+
+	HIT_FISHMAN,
+	THROW_HOLYWATER,
+	THROW_MOLOTOV,
 };
 
 typedef D3DXVECTOR3 GVector3;

@@ -19,9 +19,9 @@ void PlayScene::setViewport(Viewport* viewport)
 
 void PlayScene::initStage()
 {
-	//SoundManager::getInstance()->Play(CHANGE_STAGE);
-	//SoundManager::getInstance()->Stop(BOSS_SOUND);
-	//SoundManager::getInstance()->PlayLoop(PLAY_SCENE);
+	SoundManager::getInstance()->Play(CHANGE_STAGE);
+	SoundManager::getInstance()->Stop(BOSS_SOUND);
+	SoundManager::getInstance()->PlayLoop(PLAY_SCENE);
 
 	_tileMap = StageManager::getInstance()->getTileMap(_currentStage);
 
@@ -44,10 +44,17 @@ void PlayScene::initStage()
 			_player->setPosition(obj->getPosition());
 			this->getPlayer()->setStatus(obj->getStatus());
 		}
-		else
+		else if (obj->isQuatreeNode())
+		{
 			_root->Insert(obj);
+		}
+		else {
+			_mainObject.push_back(obj);
+		}
+			
 	}
 	listObject->clear();
+
 
 	this->getPlayer()->setStage(_currentStage);
 	this->getPlayer()->resetValues();
@@ -61,7 +68,7 @@ bool PlayScene::init()
 	player->getBounding();
 	this->_player = player;
 
-	_currentStage = MAP_STAGE_12;
+	_currentStage = MAP_STAGE_10;
 
 	initStage();
 
@@ -97,24 +104,52 @@ void PlayScene::update(float dt)
 	RECT viewport_in_transform = _viewport->getBounding();
 
 	_root->DeleteObjects();
-
+	deleteMainObjects();
 	_activeObject.clear();
 	_activeObject = _root->Retrieve(viewport_in_transform);
 
 	for (auto obj : _activeObject)
 		_player->checkCollision(obj, dt);
 
+	for (auto obj : _mainObject)
+	{
+		_player->checkCollision(obj, dt);
+	}
+
 	auto i = 0;
 	int j;
-	while (i < _activeObject.size() - 1)
+	while (i <= _activeObject.size() - 1)
 	{
 		j = i + 1;
 		while (j < _activeObject.size())
 		{
-			if (_activeObject[i]->getId() == WALL)
+			if (_activeObject[i]->getId() == WALL || _activeObject[i]->getId() == FISHMAN_WALL || _activeObject[i]->getId() == MONKEY_WALL)
 				_activeObject[j]->checkCollision(_activeObject[i], dt);
 			else
 				_activeObject[i]->checkCollision(_activeObject[j], dt);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i <= _mainObject.size() - 1 && _mainObject.size() > 0)
+	{
+		j = i + 1;
+		while (j < _mainObject.size())
+		{
+			if (_mainObject[i]->getId() == WALL || _mainObject[i]->getId() == FISHMAN_WALL || _mainObject[i]->getId() == MONKEY_WALL)
+				_mainObject[j]->checkCollision(_mainObject[i], dt);
+			else
+				_mainObject[i]->checkCollision(_mainObject[j], dt);
+			j++;
+		}
+		j = 0;
+		while (j < _activeObject.size())
+		{
+			if (_mainObject[i]->getId() == WALL || _mainObject[i]->getId() == FISHMAN_WALL || _mainObject[i]->getId() == MONKEY_WALL)
+				_activeObject[j]->checkCollision(_mainObject[i], dt);
+			else
+				_mainObject[i]->checkCollision(_activeObject[j], dt);
 			j++;
 		}
 		i++;
@@ -125,6 +160,31 @@ void PlayScene::update(float dt)
 	for (BaseObject* obj : _activeObject)
 	{
 		obj->update(dt);
+	}
+
+	for (BaseObject* obj : _mainObject)
+	{
+		obj->update(dt);
+	}
+}
+
+void PlayScene::deleteMainObjects()
+{
+	if (!_mainObject.empty())
+	{
+		auto i = 0;
+		while (i < _mainObject.size())
+		{
+			if (_mainObject[i]->getStatus() == eStatus::DESTROY)
+			{
+				auto obj = _mainObject[i];
+				_mainObject.erase(_mainObject.begin() + i);
+				obj->release();
+				delete obj;
+			}
+			else
+				i++;
+		}
 	}
 }
 
@@ -137,7 +197,7 @@ void PlayScene::updateViewport(Player* player, float dt)
 	auto isPlayingMovie = player->IsPlayingMove();
 	auto checkPoint = _tileMap->getCheckpoint();
 
-	GVector2 new_position = GVector2(max(playerX - 260, 0), WINDOW_HEIGHT);
+	GVector2 new_position = GVector2(max(playerX -260, 0), WINDOW_HEIGHT);
 
 	if (!isPlayingMovie)
 	{
@@ -230,6 +290,11 @@ void PlayScene::draw(LPD3DXSPRITE spriteHandle)
 		{
 			object->draw(spriteHandle, _viewport);
 		}
+
+		for (BaseObject* object : _mainObject)
+		{
+			object->draw(spriteHandle, _viewport);
+		}
 	}
 	/*else
 	{
@@ -249,7 +314,7 @@ void PlayScene::release()
 	_tileMap->release();
 	SAFE_DELETE(_tileMap);
 
-	//SoundManager::getInstance()->Stop(PLAY_SCENE);
+	SoundManager::getInstance()->Stop(PLAY_SCENE);
 }
 
 bool PlayScene::checkEndGame()

@@ -2,13 +2,15 @@
 #define _FRANKENSTEIN_H
 
 #include "..\FrameWork\define.h"
-#include "BaseObject.h"
-#include "Monkey.h"
 #include "..\Framework\IComponent.h"
 #include "CollisionBody.h"
 #include "../FrameWork/Animation.h"
 #include "../Framework/StopWatch.h"
+#include "../Framework/SceneManager.h"
 #include "QuadtreeNode.h"
+#include "BaseObject.h"
+#include "Monkey.h"
+#include "Ball.h"
 #include <ctime>
 
 #define FRANKENSTEIN_SPEED 30.0f
@@ -16,7 +18,7 @@
 
 class Frankenstein : public BaseObject {
 public:
-	Frankenstein(int x, int y);
+	Frankenstein(int x, int y, int checkpoint, int ballPos, bool quadtree = true);
 
 	void init() override;
 	void update(float deltatime) override;
@@ -26,6 +28,9 @@ public:
 	void setStatus(eStatus status) override;
 	float checkCollision(BaseObject* object, float dt);
 	GVector2 getVelocity();
+	int getHitPoint();
+	int getCheckpoint();
+	int getBallPosition();
 	void jump();
 	void moveToPlayer();
 	void moveAwayFromPlayer();
@@ -43,6 +48,9 @@ protected:
 	map<string, IComponent*> _componentList;
 	float _moveSpeed;
 	float _initX;
+	int _hitpoint;
+	int _checkpoint;
+	int _ballPosition;
 	bool _isDead;
 	bool _isActive = false;
 	bool _beHit;

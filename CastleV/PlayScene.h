@@ -40,19 +40,20 @@ private:
 	// Danh sách đối tượng nằm trong vùng active.
 	// Mỗi vòng lặp sẽ được kiểm tra chỉnh sửa tại update, và sử dụng lại tại draw.
 	vector<BaseObject*> _activeObject;
+	vector<BaseObject*> _mainObject;
 
 	TileMap* _tileMap;
 
 	BaseObject* _player;
 
 	void updateViewport(Player* player, float dt);
+	void deleteMainObjects();
 
 	bool checkEndGame();
 
 	void initStage();
 
 	eID _currentStage;
-
 
 	bool _isPlayingMovie;
 

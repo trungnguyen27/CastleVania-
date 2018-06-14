@@ -9,12 +9,7 @@ Fishman::Fishman(int x, int y, bool isLeft) : BaseObject(FISHMAN)
 	_animation = new Animation(_sprite, 0.4f);
 	_animation->addFrameRect(eID::ENEMY,"fishman_2", "fishman_3", NULL);
 
-	splash1 = new Splash(x, y);
-	splash1->init();
-	splash2 = new Splash(x, y);
-	splash2->init();
-	splash3 = new Splash(x, y);
-	splash3->init();
+
 
 	_isDead = false;
 	_isActive = false;
@@ -30,9 +25,6 @@ void Fishman::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 	{
 		if (_isActive) {
 			_animation->draw(spriteHandle, viewport);
-			splash1->draw(spriteHandle, viewport);
-			splash2->draw(spriteHandle, viewport);
-			splash3->draw(spriteHandle, viewport);
 		}
 	}
 }
@@ -41,6 +33,7 @@ void Fishman::update(float deltatime)
 {
 	if (this->getPositionX() < _initX - 520 || this->getPositionX() > _initX + 520)
 	{
+		SoundManager::getInstance()->Play(FISHMAN_FALL);
 		this->setStatus(DESTROY);
 		return;
 	}
@@ -48,8 +41,15 @@ void Fishman::update(float deltatime)
 	{
 		if (_isActive)
 		{
-			
+			if (this->getPositionY() < -20)
+			{
+				splash();
+				SoundManager::getInstance()->Play(FISHMAN_FALL);
+				this->setStatus(DESTROY);
+			}
 		}
+
+	
 	/*	if (_jumpStopWatch->isStopWatch(500))
 		{
 			this->setStatus(eStatus::FALLING);
@@ -64,18 +64,6 @@ void Fishman::update(float deltatime)
 			this->setStatus(DESTROY);
 			srand(time(0));
 			auto ran = rand() % 10;
-			BaseObject* item = nullptr;
-			//if (ran < 3)
-			//	item = new BigHeart(this->getPositionX(), this->getPositionY());
-			//else if (ran > 6)
-			//	item = new Money(this->getPositionX(), this->getPositionY(), ran - 7);
-			//else
-			//	item = new Heart(this->getPositionX(), this->getPositionY());
-			//if (item != nullptr)
-			//{
-			//	item->init();
-			//	QuadTreeNode::getInstance()->Insert(item);
-			//}
 		}
 		
 
@@ -172,6 +160,8 @@ void Fishman::jump()
 
 	this->addStatus(eStatus::JUMPING);
 
+	SoundManager::getInstance()->Play(FISHMAN_JUMP);
+
 	auto move = (Movement*)this->_componentList["Movement"];
 	move->setVelocity(GVector2(move->getVelocity().x, 700));
 
@@ -259,10 +249,26 @@ void Fishman::Active(bool direct)
 		{
 			this->jump();
 			_isActive = true;
-			splash1->doSplash(GVector2(20, 50));
-			splash2->doSplash(GVector2(-20, 60));
-			splash3->doSplash(GVector2(0, 50));
+			splash();
 		}
+}
+
+void Fishman::splash()
+{
+	float x = this->getPositionX();
+	float y = this->getPositionY()+50;
+	auto splash1 = new Splash(x, y);
+	splash1->init();
+	auto splash2 = new Splash(x, y);
+	splash2->init();
+	auto splash3 = new Splash(x, y);
+	splash3->init();
+	QuadTreeNode::getInstance()->Insert(splash1);
+	QuadTreeNode::getInstance()->Insert(splash2);
+	QuadTreeNode::getInstance()->Insert(splash3);
+	splash1->doSplash(GVector2(20, 100));
+	splash2->doSplash(GVector2(-20, 100));
+	splash3->doSplash(GVector2(0, 100));
 }
 
 

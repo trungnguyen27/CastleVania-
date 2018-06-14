@@ -39,12 +39,10 @@ void DinosaurBody::setDirect(bool direct)
 
 void DinosaurBody::update(float deltatime)
 {
-	_animation->update(deltatime);
-
 	if (!_ready && _readyStopWatch->isStopWatch(500))
 	{
 		_ready = true;
-		_animation->enableFlashes(false);
+		//_animation->enableFlashes(false);
 		_readyStopWatch->restart();
 	}
 
@@ -60,12 +58,14 @@ void DinosaurBody::release()
 	{
 		SAFE_DELETE(it->second);
 	}
+	SAFE_DELETE(_sprite);
+	SAFE_DELETE(_animation);
 	_componentList.clear();
 }
 
 void DinosaurBody::Destroy()
 {
-	BaseObject* heart = heart = new Heart(this->getPositionX(), this->getPositionY() + 32);
+	BaseObject* heart = new Heart(this->getPositionX(), this->getPositionY() + 32);
 
 	if (heart != nullptr)
 	{

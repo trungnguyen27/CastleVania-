@@ -7,6 +7,7 @@
 #include "CollisionBody.h"
 #include "../FrameWork/Animation.h"
 #include "../Framework/StopWatch.h"
+#include "../Framework/SoundManager.h"
 #include "QuadtreeNode.h"
 #include "Splash.h"
 #include <ctime>
@@ -33,6 +34,7 @@ public:
 	bool isActive();
 	bool isDead();
 	bool isLeft();
+	void splash();
 protected:
 	Animation* _animation;
 	map<string, IComponent*> _componentList;
@@ -43,9 +45,6 @@ protected:
 	bool _isLeft;
 	Sprite* _effect;
 	BaseObject* preWall;
-	Splash* splash1;
-	Splash* splash2;
-	Splash* splash3;
 	Animation* _effectAnimation;
 	StopWatch* _effectStopWatch;
 	StopWatch* _jumpStopWatch;

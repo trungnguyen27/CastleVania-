@@ -36,11 +36,14 @@ void Splash::init()
 	_componentList["CollisionBody"] = collisionBody;
 
 	auto movement = new Movement(GVector2(0, 0), GVector2(0, 0), _sprite);
-	movement->setVelocity(GVector2(0, 0));
 	_componentList["Movement"] = movement;
 
 	_destroyStopWatch = new StopWatch();
 	_startDestroyStopWatch = false;
+
+	auto move = (Movement*)this->_componentList["Movement"];
+	move->setVelocity(GVector2(200, 300));
+	move->setAccelerate(GVector2(-100, -800));
 }
 
 RECT Splash::getBounding()
@@ -50,8 +53,7 @@ RECT Splash::getBounding()
 
 void Splash::doSplash(GVector2 direction)
 {
-	auto move = (Movement*)this->_componentList["Movement"];
-	move->setVelocity(direction);
+	
 	_splash = true;
 }
 

@@ -51,6 +51,6 @@ void CastlevaniaGame::loadResource()
 	// Game::init đã gọi hàm này rồi nên không cần gọi lại CastlevaniaGame::loadResource
 	// load resource
 	SpriteManager::getInstance()->loadResource(_spriteHandle);
-	//SoundManager::getInstance()->loadSound(Game::hWindow->getWnd());
+	SoundManager::getInstance()->loadSound(Game::hWindow->getWnd());
 	StageManager::getInstance()->loadResource();
 }

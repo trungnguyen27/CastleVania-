@@ -1,7 +1,7 @@
 #include "Monkey.h"
 
 
-Monkey::Monkey(int x, int y, int activeX) : BaseObject(MONKEY)
+Monkey::Monkey(int x, int y, int activeX, bool isquadtree) : BaseObject(MONKEY)
 {
 	_sprite = SpriteManager::getInstance()->getSprite(eID::ENEMY);
 	_sprite->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::ENEMY, "monkey_1"));
@@ -18,6 +18,8 @@ Monkey::Monkey(int x, int y, int activeX) : BaseObject(MONKEY)
 	_effectAnimation->addFrameRect(EFFECT, "hit_effect_1", "hit_effect_2", "hit_effect_3", "hit_effect_4", NULL);
 
 	_hitPoint = 2;
+
+	setQuadTree(isquadtree);
 }
 
 void Monkey::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
@@ -61,7 +63,7 @@ void Monkey::update(float deltatime)
 		{
 			this->setPositionX(followTarget->getPositionX());
 			float scale = followTarget->getScale().x / abs(followTarget->getScale().x);
-			this->setScale(GVector2(scale, this->getScale().y));
+			//this->setScale(GVector2(scale, this->getScale().y));
 		}
 	}
 	else
@@ -211,12 +213,12 @@ void Monkey::jump()
 {
 	srand(time(NULL));
 
-	int leap = rand() % 150 + 100;
-	int angle = rand() % 250 + 200;
+	int leap = rand() % 120 + 100;
+	int angle = rand() % 220 + 200;
 	int direction = _isLeft ? -1 : 1;
 	//if (this->isInStatus(eStatus::JUMPING) || this->isInStatus(eStatus::FALLING))
 	//	return;
-	this->setScaleX(this->getScale().x * (-direction));
+	this->setScaleX(abs(this->getScale().x) * (-direction));
 
 	this->addStatus(eStatus::JUMPING);
 
@@ -229,9 +231,9 @@ void Monkey::jump()
 
 void Monkey::active(bool activate)
 {
-	_activated = activate;
 	if (!_activated )
 	{
+		_activated = activate;
 		this->jump();
 	}
 }
@@ -252,6 +254,12 @@ void Monkey::release()
 	{
 		SAFE_DELETE(it->second);
 	}
+	SAFE_DELETE(_effect);
+	SAFE_DELETE(_effectAnimation);
+	SAFE_DELETE(_effectStopWatch);
+	SAFE_DELETE(_hitStopWatch);
+	SAFE_DELETE(_shootStopWatch);
+	SAFE_DELETE(_animation)
 	_componentList.clear();
 }
 

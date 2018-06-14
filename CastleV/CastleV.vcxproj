@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -85,7 +85,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;dsound.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;dxerr.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;dsound.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -95,6 +95,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;dsound.lib;winmm.lib;kernel32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -146,12 +149,19 @@
     <ClCompile Include="Framework\utils.cpp" />
     <ClCompile Include="Framework\Viewport.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Object\Axe.cpp" />
+    <ClCompile Include="Object\AxeWeapon.cpp" />
+    <ClCompile Include="Object\Ball.cpp" />
     <ClCompile Include="Object\BaseObject.cpp" />
     <ClCompile Include="Object\Bat.cpp" />
     <ClCompile Include="Object\BigHeart.cpp" />
+    <ClCompile Include="Object\Boomerang.cpp" />
+    <ClCompile Include="Object\BoomerangWeapon.cpp" />
+    <ClCompile Include="Object\BreakWall.cpp" />
     <ClCompile Include="Object\Candle.cpp" />
     <ClCompile Include="Object\CollisionBody.cpp" />
     <ClCompile Include="Object\Dagger.cpp" />
+    <ClCompile Include="Object\DaggerWeapon.cpp" />
     <ClCompile Include="Object\Dinosaur.cpp" />
     <ClCompile Include="Object\DinosaurBody.cpp" />
     <ClCompile Include="Object\EmptyObject.cpp" />
@@ -164,6 +174,7 @@
     <ClCompile Include="Object\Frankenstein.cpp" />
     <ClCompile Include="Object\Heart.cpp" />
     <ClCompile Include="Object\HolyWater.cpp" />
+    <ClCompile Include="Object\HolyWaterWeapon.cpp" />
     <ClCompile Include="Object\Info.cpp" />
     <ClCompile Include="Object\Monkey.cpp" />
     <ClCompile Include="Object\MonkeyWall.cpp" />
@@ -214,12 +225,19 @@
     <ClInclude Include="Framework\utils.h" />
     <ClInclude Include="Framework\Viewport.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Object\Axe.h" />
+    <ClInclude Include="Object\AxeWeapon.h" />
+    <ClInclude Include="Object\Ball.h" />
     <ClInclude Include="Object\BaseObject.h" />
     <ClInclude Include="Object\Bat.h" />
     <ClInclude Include="Object\BigHeart.h" />
+    <ClInclude Include="Object\Boomerang.h" />
+    <ClInclude Include="Object\BoomerangWeapon.h" />
+    <ClInclude Include="Object\BreakWall.h" />
     <ClInclude Include="Object\Candle.h" />
     <ClInclude Include="Object\CollisionBody.h" />
     <ClInclude Include="Object\Dagger.h" />
+    <ClInclude Include="Object\DaggerWeapon.h" />
     <ClInclude Include="Object\Dinosaur.h" />
     <ClInclude Include="Object\DinosaurBody.h" />
     <ClInclude Include="Object\EmptyObject.h" />
@@ -232,6 +250,7 @@
     <ClInclude Include="Object\Frankenstein.h" />
     <ClInclude Include="Object\Heart.h" />
     <ClInclude Include="Object\HolyWater.h" />
+    <ClInclude Include="Object\HolyWaterWeapon.h" />
     <ClInclude Include="Object\Info.h" />
     <ClInclude Include="Object\Monkey.h" />
     <ClInclude Include="Object\MonkeyWall.h" />

@@ -21,7 +21,7 @@
 class Monkey : public BaseObject
 {
 public:
-	Monkey(int x, int y, int activeX);
+	Monkey(int x, int y, int activeX, bool isquadtree = false);
 
 
 	void init() override;

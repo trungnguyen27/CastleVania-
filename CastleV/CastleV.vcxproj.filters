@@ -183,9 +183,6 @@
     <ClCompile Include="Object\Fishman.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Object\FishmanWall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Potion.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
@@ -213,9 +210,6 @@
     <ClCompile Include="Object\Food.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Weapon.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Frankenstein.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
@@ -235,6 +229,36 @@
       <Filter>Source Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="Object\MonkeyWall.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Weapon.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\FishmanWall.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DaggerWeapon.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BoomerangWeapon.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Boomerang.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HolyWaterWeapon.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\AxeWeapon.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Axe.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Ball.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BreakWall.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -383,9 +407,6 @@
     <ClInclude Include="Object\Fishman.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Object\FishmanWall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Object\Potion.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
@@ -413,9 +434,6 @@
     <ClInclude Include="Object\Food.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Weapon.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Object\Frankenstein.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
@@ -435,6 +453,36 @@
       <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="Object\MonkeyWall.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Boomerang.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BoomerangWeapon.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DaggerWeapon.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\FishmanWall.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Weapon.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HolyWaterWeapon.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Axe.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\AxeWeapon.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Ball.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BreakWall.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>

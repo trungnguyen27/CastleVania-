@@ -3,6 +3,9 @@
  <tileset firstgid="1" name="stage12" tilewidth="32" tileheight="32" tilecount="224" columns="32">
   <image source="stage12.png" width="1024" height="240"/>
  </tileset>
+ <tileset firstgid="225" name="stage12w" tilewidth="32" tileheight="32" tilecount="224" columns="32">
+  <image source="stage12.png" width="1024" height="240"/>
+ </tileset>
  <layer name="layer" width="32" height="7">
   <data>
    <tile gid="1"/>
@@ -239,7 +242,7 @@
   <object id="10" name="Wall" type="40" x="305.439" y="160.152" width="349" height="15"/>
   <object id="11" name="Wall" type="40" x="655.939" y="175.652" width="16" height="15"/>
   <object id="12" name="Wall" type="40" x="673.439" y="194.152" width="62" height="12"/>
-  <object id="13" name="Wall" type="40" x="737.439" y="175.652" width="30.5" height="31.5"/>
+  <object id="13" name="Wall" type="40" x="737.439" y="175.652" width="14" height="31.5"/>
   <object id="14" name="Wall" type="40" x="727.939" y="48.1515" width="7.5" height="57.5"/>
   <object id="15" name="Wall" type="40" x="799.939" y="176.152" width="30.5" height="15"/>
   <object id="16" name="Wall" type="40" x="767.439" y="207.652" width="255.5" height="15"/>
@@ -247,7 +250,7 @@
   <object id="18" name="Wall" type="40" x="992.439" y="144.152" width="30.5" height="14.5"/>
   <object id="20" name="Wall" type="40" x="751.939" y="161.152" width="16" height="13.5"/>
   <object id="21" name="Wall" type="40" x="736.439" y="159.152" width="15.5" height="17.5"/>
-  <object id="44" name="Wall" type="40" x="16.6667" y="106" width="719.333" height="5.33333"/>
+  <object id="44" name="Wall" type="40" x="16.6667" y="97" width="719.333" height="14.3333"/>
   <object id="45" name="Candle" type="61" x="28.6667" y="142" width="5.66667" height="6.33333">
    <properties>
     <property name="Item" type="int" value="81"/>
@@ -333,7 +336,7 @@
     <property name="Item" type="int" value="81"/>
    </properties>
   </object>
-  <object id="64" name="START" type="50" x="827.765" y="153.492" width="6" height="6">
+  <object id="64" name="START" type="50" x="31.515" y="167.492" width="6" height="6">
    <properties>
     <property name="status" value="0"/>
    </properties>
@@ -343,16 +346,28 @@
     <property name="status" value="0"/>
    </properties>
   </object>
-  <object id="66" name="END" type="51" x="1011.58" y="170.167" width="6" height="6">
+  <object id="69" name="Frankenstein" type="73" x="968.75" y="203" width="6.5" height="6.75">
    <properties>
-    <property name="next" value="12"/>
-    <property name="status" value="0"/>
+    <property name="ballPosition" type="int" value="880"/>
+    <property name="checkpoint" type="int" value="760"/>
+    <property name="isQuadtreeNode" value="false"/>
    </properties>
   </object>
-  <object id="69" name="Frankenstein" type="73" x="984.75" y="205.5" width="6.5" height="6.75"/>
-  <object id="71" name="Dinosaur" type="74" x="292.833" y="163.5" width="8" height="9.33333"/>
-  <object id="74" name="Dinosaur" type="74" x="738" y="163.833" width="8" height="9.33333"/>
-  <object id="79" name="MonkeyWall" type="46" x="759.333" y="47.3333" width="8.33333" height="114"/>
-  <object id="80" name="MonkeyWall" type="46" x="1023.5" y="-0.5" width="10" height="207"/>
+  <object id="71" name="Dinosaur" type="74" x="292.833" y="163.5" width="8" height="9.33333">
+   <properties>
+    <property name="isQuadtreeNode" value="false"/>
+   </properties>
+  </object>
+  <object id="74" name="Dinosaur" type="74" x="738" y="163.833" width="8" height="9.33333">
+   <properties>
+    <property name="isQuadtreeNode" value="false"/>
+   </properties>
+  </object>
+  <object id="79" name="MonkeyWall" type="46" x="759.333" y="-5.1667" width="8.33333" height="228.5">
+   <properties>
+    <property name="isQuadtreeNode" value="false"/>
+   </properties>
+  </object>
+  <object id="80" name="Wall" type="40" x="1013" y="1.5" width="10" height="207"/>
  </objectgroup>
 </map>

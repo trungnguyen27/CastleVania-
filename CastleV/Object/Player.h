@@ -6,23 +6,28 @@
 #include "../FrameWork/InputController.h"
 #include "../Framework/Viewport.h"
 #include "../FrameWork/StopWatch.h"
-#include "BaseObject.h"
 #include "../Framework/IComponent.h"
-#include "CollisionBody.h"
+#include "../Framework/SceneManager.h"
+#include "../Framework/StageManager.h"
+#include "../Framework/SoundManager.h"
 
 #include <list>
+#include <thread>
 #include "Info.h"
 #include "Rope.h"
 #include "Bat.h"
 #include "Fishman.h"
 #include "End.h"
-#include "Weapon.h"
 #include "Frankenstein.h"
 #include "Monkey.h"
-#include "../Framework/SceneManager.h"
-#include "../Framework/StageManager.h"
-#include "../Framework/SoundManager.h"
-#include <thread>
+#include "DaggerWeapon.h"
+#include "BoomerangWeapon.h"
+#include "HolyWaterWeapon.h"
+#include "Ball.h"
+#include "AxeWeapon.h"
+#include "CollisionBody.h"
+#include "BaseObject.h"
+
 
 #define MOVE_SPEED 125
 #define JUMP_VEL 350

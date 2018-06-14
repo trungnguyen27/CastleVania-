@@ -13,9 +13,7 @@
 class FloatingWall : public BaseObject
 {
 public:
-	FloatingWall(int x, int y, int activeX, bool reversed);
-
-
+	FloatingWall(int x, int y, int activeX, bool reversed, bool isquadtree);
 	void init() override;
 	void update(float deltatime) override;
 	void draw(LPD3DXSPRITE, Viewport*) override;

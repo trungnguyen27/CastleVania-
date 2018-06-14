@@ -220,6 +220,29 @@ BaseObject* GetFishmanWall(xml_node item, int mapHeight)
 	fishmanWall->init();
 	return fishmanWall;
 }
+
+BaseObject* GetBreakWall(xml_node item, int mapHeight)
+{
+	auto properties = GetObjectProperties(item);
+	if (properties.size() == 0)
+		return nullptr;
+	auto width = 2 * stoi(properties["width"]);
+	auto height = 2 * stoi(properties["height"]);
+
+	auto x = 2 * stoi(properties["x"]);
+	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
+
+	x = x + width / 2;
+	y = y + height / 2;
+	BaseObject* breakWall = nullptr;
+	if (properties["item"] != "")
+		breakWall = new BreakWall(x, y, (eID)stoi(properties["item"]));
+	else
+		breakWall = new BreakWall(x, y);
+	breakWall->init();
+	return breakWall;
+}
+
 BaseObject* GetCandle(xml_node item, int mapHeight)
 {
 	auto properties = GetObjectProperties(item);
@@ -260,10 +283,14 @@ BaseObject* GetFloatingWall(xml_node item, int mapHeight)
 	auto value = properties["Reversed"];
 	if (value == "true")
 		Reversed = true;
+	bool isQuadtreeNode = true;
+	auto quadtreeVal = properties["isQuadtreeNode"];
+	if (quadtreeVal == "false")
+		isQuadtreeNode = false;
 
 	ActiveBoundX = ActiveBoundX + width / 2;
 
-	auto floatingWall = new FloatingWall(x, y, ActiveBoundX, Reversed);
+	auto floatingWall = new FloatingWall(x, y, ActiveBoundX, Reversed, isQuadtreeNode);
 	floatingWall->init();
 	return floatingWall;
 }
@@ -445,6 +472,8 @@ BaseObject* GetFrankenstein(xml_node item, int mapHeight) {
 		return nullptr;
 	auto width = 2 * stoi(properties["width"]);
 	auto height = 2 * stoi(properties["height"]);
+	auto checkpoint =2 * stoi(properties["checkpoint"]);
+	auto ballPos = 2 * stoi(properties["ballPosition"]);
 
 	auto x = 2 * stoi(properties["x"]);
 	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
@@ -452,8 +481,13 @@ BaseObject* GetFrankenstein(xml_node item, int mapHeight) {
 	x = x + width / 2;
 	y = y + height / 2;
 
+	bool isQuadtreeNode = true;
+	auto quadtreeVal = properties["isQuadtreeNode"];
+	if (quadtreeVal == "false")
+		isQuadtreeNode = false;
 
-	auto frankenstein = new Frankenstein(x, y);
+
+	auto frankenstein = new Frankenstein(x, y, checkpoint, ballPos, isQuadtreeNode);
 	frankenstein->init();
 	return frankenstein;
 }
@@ -485,13 +519,19 @@ BaseObject* GetMonkey(xml_node item, int mapHeight) {
 	auto height = 2 * stoi(properties["height"]);
 
 	auto x = 2 * stoi(properties["x"]);
+	auto quadtree = properties["isQuadtreeNode"];
+	bool _isQuadtreeNode = true;
+	if (quadtree == "false")
+	{
+		_isQuadtreeNode = false;
+	}
 	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
 
 	x = x + width / 2;
 	y = y + height / 2;
 
 
-	auto monkey = new Monkey(x, y, 200);
+	auto monkey = new Monkey(x, y, 200, _isQuadtreeNode);
 	monkey->init();
 	return monkey;
 }
@@ -549,6 +589,8 @@ BaseObject* GetObjectByType(xml_node item, eID type, int mapHeight)
 			return GetDinosaur(item, mapHeight);
 		case MONKEY:
 			return GetMonkey(item, mapHeight);
+		case BREAK_WALL:
+			return GetBreakWall(item, mapHeight);
 		default:
 			return nullptr;
 	}

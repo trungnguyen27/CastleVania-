@@ -65,6 +65,9 @@ public:
 	virtual void setColor(D3DXCOLOR color);
 	virtual D3DXCOLOR getColor();
 
+	virtual bool isQuatreeNode();
+	virtual void setQuadTree(bool quadtree);
+
 	virtual GVector2 getAnchorPoint();
 
 	Sprite* getSprite();
@@ -87,6 +90,7 @@ protected:
 	eID _id;
 	eStatus _status;
 	eDirection _physicsSide;
+	bool isQuadtreeNode = true;
 };
 
 #endif // !__BASEOBJECT_H__

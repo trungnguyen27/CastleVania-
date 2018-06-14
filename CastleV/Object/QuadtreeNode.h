@@ -15,6 +15,7 @@ public:
 	~QuadTreeNode() {};
 
 	vector<BaseObject*> Retrieve(const RECT bounds);	
+	vector<BaseObject*> RetrieveMainObjects();
 	void Insert(BaseObject* object);
 	void DeleteObjects();
 	void Release();
@@ -27,6 +28,7 @@ protected:
 	short m_level;
 	RECT m_bounds;
 	std::vector<BaseObject*> m_objects; 
+	std::vector<BaseObject*> m_mainObjects;
 	std::vector<QuadTreeNode*> m_children;
 	
 	short GetIndex(const RECT& bounds);

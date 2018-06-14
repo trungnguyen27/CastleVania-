@@ -147,6 +147,16 @@ float BaseObject::getZIndex()
 	return _sprite->getZIndex();
 }
 
+bool BaseObject::isQuatreeNode()
+{
+	return isQuadtreeNode;
+}
+
+void BaseObject::setQuadTree(bool quadtree)
+{
+	this->isQuadtreeNode = quadtree;
+}
+
 void BaseObject::setOpacity(float opacity)
 {
 	_sprite->setOpacity(opacity);

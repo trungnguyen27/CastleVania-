@@ -22,6 +22,27 @@ void Info::SetWeapon(eID id)
 		_weaponSprite->setPosition(300, 42);
 		break;
 	}
+	case BOOMERANG:
+	{
+		_weaponSprite = SpriteManager::getInstance()->getSprite(ITEM);
+		_weaponSprite->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::ITEM, "boomerang"));
+		_weaponSprite->setPosition(300, 42);
+		break;
+	}
+	case HOLYWATER:
+	{
+		_weaponSprite = SpriteManager::getInstance()->getSprite(ITEM);
+		_weaponSprite->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::ITEM, "holy_water"));
+		_weaponSprite->setPosition(300, 42);
+		break;
+	}
+	case AXE:
+	{
+		_weaponSprite = SpriteManager::getInstance()->getSprite(ITEM);
+		_weaponSprite->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::ITEM, "axe"));
+		_weaponSprite->setPosition(300, 42);
+		break;
+	}
 	default:
 		_weaponSprite = nullptr;
 		break;
@@ -101,6 +122,11 @@ void Info::init()
 
 void Info::update(float deltatime)
 {
+	stringstream ssHeart;
+	_textHeart->setPosition(GVector2(_iconHeart->getPosition().x + GAP / 1.4, _iconHeart->getPosition().y + GAP / 1.4));
+	ssHeart << setw(2) << setfill('0') << _heartNumber;
+	_textHeart->setString("-" + ssHeart.str());
+
 	stringstream ssStage;
 	ssStage << setw(2) << setfill('0') << _stageNumber;
 	_textStage->setString("STAGE-" + ssStage.str());

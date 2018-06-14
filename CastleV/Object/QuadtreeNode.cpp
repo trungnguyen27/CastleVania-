@@ -56,7 +56,10 @@ void QuadTreeNode::Insert(BaseObject* object)
 			return;
 		}
 	}
-	m_objects.push_back(object);
+	if (object->isQuatreeNode())
+	{
+		m_objects.push_back(object);
+	}
 
 	if (m_objects.size() > MAX_OBJECTS && m_level < MAX_LEVELS)
 	{
@@ -104,6 +107,11 @@ vector<BaseObject*> QuadTreeNode::Retrieve(const RECT bounds)
 	foundObjects.insert(foundObjects.end(), m_objects.begin(), m_objects.end());
 
 	return foundObjects;
+}
+
+vector<BaseObject*> QuadTreeNode::RetrieveMainObjects()
+{
+	return m_mainObjects;
 }
 
 void QuadTreeNode::DeleteObjects()
@@ -162,6 +170,14 @@ void QuadTreeNode::Release()
 	if (!m_objects.empty())
 	{
 		for(auto obj : m_objects)
+		{
+			obj->release();
+			SAFE_DELETE(obj);
+		}
+	}
+	if (!m_mainObjects.empty())
+	{
+		for (auto obj : m_mainObjects)
 		{
 			obj->release();
 			SAFE_DELETE(obj);

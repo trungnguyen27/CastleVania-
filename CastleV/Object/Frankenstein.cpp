@@ -1,6 +1,6 @@
 #include "Frankenstein.h"
 
-Frankenstein::Frankenstein(int x, int y) : BaseObject(FRANKENSTEIN)
+Frankenstein::Frankenstein(int x, int y, int checkpoint, int ballPos, bool quadtree) : BaseObject(FRANKENSTEIN)
 {
 	_sprite = SpriteManager::getInstance()->getSprite(eID::ENEMY);
 	_sprite->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::ENEMY, "frankenstein_1"));
@@ -13,16 +13,27 @@ Frankenstein::Frankenstein(int x, int y) : BaseObject(FRANKENSTEIN)
 
 	_animation = new Animation(_sprite, 0.2f);
 	_animation->addFrameRect(eID::ENEMY, "frankenstein_1", "frankenstein_2", "frankenstein_3", NULL);
+	_animation->setValueFlashes(0.5f);
+
+	_effect = SpriteManager::getInstance()->getSprite(eID::EFFECT);
+	_effect->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::EFFECT, "fire_1"));
+	_effectAnimation = new Animation(_effect, 0.15f);
+	_effectAnimation->addFrameRect(EFFECT, "fire_1", "fire_2", "fire_3", "fire_4", NULL);
 
 	_isDead = false;
 	_isActive = false;
 	_initX = x;
+	_hitpoint = 16;
+	_ballPosition = ballPos;
+	_checkpoint = checkpoint;
+	setQuadTree(quadtree);
 }
 
 void Frankenstein::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 {
-	if (_isDead)
+	if (_isDead) {
 		_effectAnimation->draw(spriteHandle, viewport);
+	}
 	else
 	{
 		_monkey->draw(spriteHandle, viewport);
@@ -33,15 +44,26 @@ void Frankenstein::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 
 void Frankenstein::update(float deltatime)
 {
+	if (_hitpoint <= 0 && !_isDead)
+	{
+		_isDead = true;
+		auto move = (Movement*)this->_componentList["Movement"];
+		move->setVelocity(GVector2(0, 0));
+		_effectStopWatch->isTimeLoop(800);
+	}
+
 	if (!_isDead)
 	{
 		if (_isActive)
 		{
 			if (_beHit)
 			{
-				if(_hitStopWatch->isStopWatch(4000))
+				if (_hitStopWatch->isStopWatch(1000))
+				{
 					_beHit = false;
-				this->moveAwayFromPlayer();
+					_animation->enableFlashes(false);
+				}
+				
 			}
 			else
 				this->moveToPlayer();
@@ -58,23 +80,11 @@ void Frankenstein::update(float deltatime)
 		if (_effectStopWatch->isStopWatch(800))
 		{
 			this->setStatus(DESTROY);
-			srand(time(0));
-			auto ran = rand() % 10;
-			BaseObject* item = nullptr;
-			//if (ran < 3)
-			//	item = new BigHeart(this->getPositionX(), this->getPositionY());
-			//else if (ran > 6)
-			//	item = new Money(this->getPositionX(), this->getPositionY(), ran - 7);
-			//else
-			//	item = new Heart(this->getPositionX(), this->getPositionY());
-			//if (item != nullptr)
-			//{
-			//	item->init();
-			//	QuadTreeNode::getInstance()->Insert(item);
-			//}
+			auto viewportPos = SceneManager::getInstance()->getCurrentScene()->getViewport()->getPositionWorld();
+			auto item = new Ball(viewportPos.x + 256, viewportPos.y - 200, MAP_STAGE_12);
+			item->init();
+			QuadTreeNode::getInstance()->Insert(item);
 		}
-		
-
 	}
 
 	this->updateStatus(deltatime);
@@ -118,7 +128,7 @@ float Frankenstein::checkCollision(BaseObject* object, float dt)
 			}
 		}
 	}
-	
+	_monkey->checkCollision(object, dt);
 }
 
 void Frankenstein::jump()
@@ -144,6 +154,8 @@ void Frankenstein::updateStatus(float dt)
 	//		this->moveToPlayer();
 	//}
 }
+
+
 
 void Frankenstein::moveToPlayer()
 {
@@ -197,8 +209,14 @@ void Frankenstein::standing()
 
 void Frankenstein::beHit()
 {
-	_beHit = true;
-	_hitStopWatch->restart();
+	if (!_beHit)
+	{
+		_beHit = true;
+		_hitStopWatch->restart();
+		_hitpoint -= 2;
+		_animation->enableFlashes(true);
+		this->moveAwayFromPlayer();
+	}
 }
 
 void Frankenstein::release()
@@ -209,12 +227,28 @@ void Frankenstein::release()
 		SAFE_DELETE(it->second);
 	}
 	_componentList.clear();
+	SAFE_DELETE(_monkey);
 }
 
 GVector2 Frankenstein::getVelocity()
 {
 	auto move = (Movement*)this->_componentList["Movement"];
 	return move->getVelocity();
+}
+
+int Frankenstein::getHitPoint()
+{
+	return _hitpoint;
+}
+
+int Frankenstein::getCheckpoint()
+{
+	return _checkpoint;
+}
+
+int Frankenstein::getBallPosition()
+{
+	return _ballPosition;
 }
 
 void Frankenstein::init()

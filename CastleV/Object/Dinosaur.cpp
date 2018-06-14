@@ -13,14 +13,6 @@ Dinosaur::Dinosaur(int x, int y) :BaseObject(DINOSAUR)
 	_bodyInitialPos = GVector2(x + 20, y);
 	_status = DinosaurStatus::IDLE;
 
-	for (int i = 1; i <= BODY_PARTS; i++)
-	{
-		DinosaurBody* body = new DinosaurBody(x +20, y);
-		body->init();
-		bodyParts.push_back(body);
-	}
-
-
 	_hitPoint = 6;
 	_direct = false;
 	_startHit = false;
@@ -29,16 +21,32 @@ Dinosaur::Dinosaur(int x, int y) :BaseObject(DINOSAUR)
 
 void Dinosaur::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 {
-	for (auto body : bodyParts)
-	{
-		body->draw(spriteHandle, viewport);
-	}
+	//for (auto body : bodyParts)
+	//{
+	//	body->draw(spriteHandle, viewport);
+	//}
 	_animation->draw(spriteHandle, viewport);
 }
 
 void Dinosaur::shoot()
 {
+	if (_shootingTarget)
+	{
+		bool _isLeft = true;
+		auto y = this->getPositionY();
+		auto vector = GVector2((_shootingTarget->getPositionX() - this->getPositionX()), (_shootingTarget->getPositionY() - this->getPositionY()));
+		float magnitude = sqrt(vector.x * vector.x + vector.y * vector.y);
+		auto direction = GVector2(vector.x / magnitude, vector.y / magnitude);
+		auto fireball = new FireBall(this->getPositionX(), y, _isLeft);
+		fireball->init();
+		fireball->setDirection(direction);
+		QuadTreeNode::getInstance()->Insert(fireball);
+	}
+}
 
+void Dinosaur::setShootingTarget(BaseObject* target)
+{
+	_shootingTarget = target;
 }
 
 void Dinosaur::setDirect(bool direct)
@@ -60,6 +68,8 @@ void Dinosaur::update(float deltatime)
 				_startHit = false;
 				_animation->enableFlashes(false);
 				_hitStopWatch->restart();
+				SoundManager::getInstance()->Stop(HIT_DINOSAUR);
+				SoundManager::getInstance()->Play(HIT_DINOSAUR);
 			}
 		}
 
@@ -123,10 +133,10 @@ void Dinosaur::update(float deltatime)
 		}
 	}
 	this->updateStatus(deltatime);
-	for (auto part : bodyParts)
-	{
-		part->update(deltatime);
-	}
+	//for (auto part : bodyParts)
+	//{
+	//	part->update(deltatime);
+	//}
 	for (auto it = _componentList.begin(); it != _componentList.end(); it++)
 	{
 		it->second->update(deltatime);
@@ -248,6 +258,12 @@ void Dinosaur::release()
 	{
 		SAFE_DELETE(it->second);
 	}
+
+	for (auto body : bodyParts)
+	{
+		SAFE_DELETE(body);
+	}
+	bodyParts.clear();
 	_componentList.clear();
 }
 
@@ -286,6 +302,14 @@ void Dinosaur::init()
 	_readyStopWatch->isTimeLoop(0);
 	_shoot1StopWatch->isTimeLoop(600);
 	_shoot2StopWatch->isTimeLoop(1200);
+
+	for (int i = 1; i <= BODY_PARTS; i++)
+	{
+		auto body = new DinosaurBody(this->getPositionX() + 20, this->getPositionY());
+		body->init();
+		bodyParts.push_back(body);
+		//QuadTreeNode::getInstance()->Insert(body);
+	}
 }
 
 bool Dinosaur::isDead()

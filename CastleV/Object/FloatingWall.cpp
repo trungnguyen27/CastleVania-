@@ -9,7 +9,7 @@ void FloatingWall::release()
 	_componentList.clear();
 }
 
-FloatingWall::FloatingWall(int x, int y, int activeX, bool reversed) : BaseObject(FLOATING_WALL)
+FloatingWall::FloatingWall(int x, int y, int activeX, bool reversed, bool isquadtree = true) : BaseObject(FLOATING_WALL)
 {
 	_sprite = SpriteManager::getInstance()->getSprite(eID::FLOATING_WALL);
 	_sprite->setFrameRect(SpriteManager::getInstance()->getSourceRect(eID::FLOATING_WALL, "floating_wall"));
@@ -22,6 +22,8 @@ FloatingWall::FloatingWall(int x, int y, int activeX, bool reversed) : BaseObjec
 		_activeXLeft = activeX;
 		_activeXRight = x;
 	}
+
+	setQuadTree(isquadtree);
 }
 
 void FloatingWall::init()

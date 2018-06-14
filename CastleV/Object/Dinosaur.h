@@ -4,6 +4,7 @@
 #include "..\FrameWork\define.h"
 #include "BaseObject.h"
 #include "..\Framework\IComponent.h"
+#include "..\Framework\\SoundManager.h"
 #include "CollisionBody.h"
 #include "../FrameWork/Animation.h"
 #include "../Framework/StopWatch.h"
@@ -44,6 +45,7 @@ public:
 	void move(float deltaTime);
 	void stop();
 	void setDirect(bool direct);
+	void setShootingTarget(BaseObject* target);
 
 	DinosaurStatus getStatus() { return _status; }
 
@@ -67,6 +69,7 @@ protected:
 	map<string, IComponent*> _componentList;
 	vector<BaseObject*> bodyParts;
 	int _hitPoint;
+	BaseObject* _shootingTarget;
 
 	Sprite* _effect;
 	Animation* _effectAnimation;

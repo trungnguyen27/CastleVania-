@@ -6,6 +6,8 @@
 #include "Framework/DeviceManager.h"
 #include "Framework/GameTime.h"
 #include "Framework/InputController.h"
+#include "Framework/SoundManager.h"
+#include "Framework/StageManager.h"
 
 class Game
 {
