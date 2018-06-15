@@ -988,13 +988,13 @@ float Player::checkCollision(BaseObject* object, float dt)
 			}
 			if (ropeCollisionBody->checkCollision(object, direction, dt, false))
 			{
-				//((Bat*)object)->();
+				((Bat*)object)->wasHit();
 				if (!SoundManager::getInstance()->IsPlaying(COLISION_SOUND))
 					SoundManager::getInstance()->Play(COLISION_SOUND);
 			}
 			if (this->weaponCheckCollision(object, direction, dt, false))
 			{
-				//((Bat*)object)->wasHit();
+				((Bat*)object)->wasHit();
 			}
 			if (((Bat*)object)->isDead())
 				_info->AddScore(200);

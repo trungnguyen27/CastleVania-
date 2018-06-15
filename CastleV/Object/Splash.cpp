@@ -19,6 +19,11 @@ void Splash::update(float deltatime)
 {
 	if (this->getPositionY() < -100)
 		this->setStatus(DESTROY);
+
+	for (auto it = _componentList.begin(); it != _componentList.end(); it++)
+	{
+		it->second->update(deltatime);
+	}
 }
 
 void Splash::release()
@@ -40,10 +45,6 @@ void Splash::init()
 
 	_destroyStopWatch = new StopWatch();
 	_startDestroyStopWatch = false;
-
-	auto move = (Movement*)this->_componentList["Movement"];
-	move->setVelocity(GVector2(200, 300));
-	move->setAccelerate(GVector2(-100, -800));
 }
 
 RECT Splash::getBounding()
@@ -53,8 +54,10 @@ RECT Splash::getBounding()
 
 void Splash::doSplash(GVector2 direction)
 {
-	
 	_splash = true;
+	auto movement = (Movement*)this->_componentList["Movement"];
+	movement->setVelocity(GVector2(direction.x, -direction.y/4));
+	movement->setAccelerate(direction);
 }
 
 

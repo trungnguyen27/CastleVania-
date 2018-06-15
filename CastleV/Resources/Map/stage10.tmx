@@ -359,7 +359,7 @@
     <property name="status" value="8"/>
    </properties>
   </object>
-  <object id="12" name="Floating_Wall" type="41" x="894.046" y="179.205" width="64" height="14">
+  <object id="12" name="Floating_Wall" type="41" x="901.546" y="177.705" width="64" height="14">
    <properties>
     <property name="ActiveBoundX" value="770"/>
     <property name="Reversed" type="bool" value="false"/>
@@ -394,16 +394,16 @@
     <property name="isQuadtreeNode" value="false"/>
    </properties>
   </object>
-  <object id="29" name="Floating_Wall" type="41" x="1094" y="177.917" width="64" height="14">
+  <object id="29" name="Floating_Wall" type="41" x="1108.5" y="178.417" width="64" height="14">
    <properties>
     <property name="ActiveBoundX" value="990"/>
     <property name="Reversed" type="bool" value="false"/>
     <property name="isQuadtreeNode" value="false"/>
    </properties>
   </object>
-  <object id="30" name="Floating_Wall" type="41" x="1134.16" y="144.167" width="64" height="14">
+  <object id="30" name="Floating_Wall" type="41" x="1124.16" y="157.167" width="64" height="14">
    <properties>
-    <property name="ActiveBoundX" value="120"/>
+    <property name="ActiveBoundX" value="1220"/>
     <property name="Reversed" type="bool" value="true"/>
     <property name="isQuadtreeNode" value="false"/>
    </properties>
@@ -493,7 +493,7 @@
     <property name="Item" type="int" value="81"/>
    </properties>
   </object>
-  <object id="54" name="Bat" type="71" x="288.212" y="147.954" width="7" height="7.5">
+  <object id="54" name="Bat" type="71" x="274.212" y="132.621" width="7" height="7.5">
    <properties>
     <property name="isQuadtreeNode" value="false"/>
    </properties>

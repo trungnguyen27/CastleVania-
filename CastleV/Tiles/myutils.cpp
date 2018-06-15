@@ -305,10 +305,15 @@ BaseObject* GetBat(xml_node item, int mapHeight) {
 	auto x = 2 * stoi(properties["x"]);
 	auto y = mapHeight - 2 * stoi(properties["y"]) - height;
 
+	bool isQuadtreeNode = true;
+	auto quadtreeVal = properties["isQuadtreeNode"];
+	if (quadtreeVal == "false")
+		isQuadtreeNode = false;
+
 	x = x + width / 2;
 	y = y + height / 2;
 
-	auto bat = new Bat(x, y);
+	auto bat = new Bat(x, y, isQuadtreeNode);
 	bat->init();
 	return bat;
 }

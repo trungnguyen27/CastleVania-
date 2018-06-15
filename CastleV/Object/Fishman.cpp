@@ -266,9 +266,9 @@ void Fishman::splash()
 	QuadTreeNode::getInstance()->Insert(splash1);
 	QuadTreeNode::getInstance()->Insert(splash2);
 	QuadTreeNode::getInstance()->Insert(splash3);
-	splash1->doSplash(GVector2(20, 100));
-	splash2->doSplash(GVector2(-20, 100));
-	splash3->doSplash(GVector2(0, 100));
+	splash1->doSplash(GVector2(100, -800));
+	splash2->doSplash(GVector2(-100, -800));
+	splash3->doSplash(GVector2(0, -800));
 }
 
 

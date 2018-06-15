@@ -32,6 +32,8 @@ void PlayScene::initStage()
 	rectMap.top = quadTreeWidth;
 	rectMap.right = quadTreeWidth;
 
+	_mainObject.clear();
+
 	_root = new QuadTreeNode(rectMap);
 	QuadTreeNode::setInstance(_root);
 
@@ -314,6 +316,11 @@ void PlayScene::release()
 	_tileMap->release();
 	SAFE_DELETE(_tileMap);
 
+	for (BaseObject* object : _mainObject)
+	{
+		SAFE_DELETE(object);
+	}
+
 	SoundManager::getInstance()->Stop(PLAY_SCENE);
 }
 
@@ -339,6 +346,16 @@ BaseObject* PlayScene::getObject(eID id)
 		return nullptr;
 	}
 	for (BaseObject* object : _activeObject)
+	{
+		objectID = object->getId();
+		if (objectID == id)
+			return object;
+	}
+	if (_mainObject.size() == 0)
+	{
+		return nullptr;
+	}
+	for (BaseObject* object : _mainObject)
 	{
 		objectID = object->getId();
 		if (objectID == id)

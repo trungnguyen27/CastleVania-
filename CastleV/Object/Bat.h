@@ -3,6 +3,7 @@
 
 #include "..\FrameWork\define.h"
 #include "BaseObject.h"
+#include "Heart.h"
 #include "..\Framework\IComponent.h"
 #include "CollisionBody.h"
 #include "../FrameWork/Animation.h"
@@ -14,13 +15,14 @@
 
 class Bat : public BaseObject {
 public:
-	Bat(int x, int y);
+	Bat(int x, int y, bool isQuadtreeNode = true);
 
 	void init() override;
 	void update(float deltatime) override;
 	void draw(LPD3DXSPRITE, Viewport*) override;
 	void release() override;
 
+	void wasHit();
 	void Active(bool direct);
 	bool isActive();
 	bool isDead();
