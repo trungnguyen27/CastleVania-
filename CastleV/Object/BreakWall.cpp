@@ -42,7 +42,7 @@ void BreakWall::update(float deltatime)
 			//	item = new Chicken(this->getPositionX(), this->getPositionY());
 			//else if (_item != ITEM)
 			//	item = new Heart(this->getPositionX(), this->getPositionY());
-	
+			item = new Heart(this->getPositionX(), this->getPositionY());
 			if (item != nullptr)
 			{
 				item->init();

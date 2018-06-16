@@ -21,10 +21,10 @@ Dinosaur::Dinosaur(int x, int y) :BaseObject(DINOSAUR)
 
 void Dinosaur::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 {
-	//for (auto body : bodyParts)
-	//{
-	//	body->draw(spriteHandle, viewport);
-	//}
+	for (auto body : bodyParts)
+	{
+		body->draw(spriteHandle, viewport);
+	}
 	_animation->draw(spriteHandle, viewport);
 }
 
@@ -36,7 +36,7 @@ void Dinosaur::shoot()
 		auto y = this->getPositionY();
 		auto vector = GVector2((_shootingTarget->getPositionX() - this->getPositionX()), (_shootingTarget->getPositionY() - this->getPositionY()));
 		float magnitude = sqrt(vector.x * vector.x + vector.y * vector.y);
-		auto direction = GVector2(vector.x / magnitude, vector.y / magnitude);
+		auto direction = GVector2(-1,0);
 		auto fireball = new FireBall(this->getPositionX(), y, _isLeft);
 		fireball->init();
 		fireball->setDirection(direction);
@@ -78,10 +78,6 @@ void Dinosaur::update(float deltatime)
 			this->shoot();
 		}
 
-		if (_shoot2StopWatch->isTimeLoop(SHOOT_DELAY))
-		{
-			this->shoot();
-		}
 		if (_goForwardStopWatch->isStopWatch(3000))
 		{
 			stop();
@@ -133,10 +129,10 @@ void Dinosaur::update(float deltatime)
 		}
 	}
 	this->updateStatus(deltatime);
-	//for (auto part : bodyParts)
-	//{
-	//	part->update(deltatime);
-	//}
+	for (auto part : bodyParts)
+	{
+		part->update(deltatime);
+	}
 	for (auto it = _componentList.begin(); it != _componentList.end(); it++)
 	{
 		it->second->update(deltatime);

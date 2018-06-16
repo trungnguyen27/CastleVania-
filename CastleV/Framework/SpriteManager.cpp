@@ -28,6 +28,13 @@ void SpriteManager::loadResource(LPD3DXSPRITE spriteHandle)
 	this->_listSprite[eID::FLOATING_WALL] = pSprite;
 	this->loadSpriteInfo(eID::FLOATING_WALL, "Resources//Images//floating_wall.txt");
 
+	pSprite = new Sprite(spriteHandle, L"Resources//Images//breakwall.png");
+	this->_listSprite.insert(pair<eID, Sprite*>(eID::BREAK_WALL, pSprite));
+	this->loadSpriteInfo(eID::BREAK_WALL, "Resources//Images//breakwall.txt");
+
+	pSprite = new Sprite(spriteHandle, L"Resources//Images//wall_cube.png");
+	this->_listSprite[eID::WALL] = pSprite;
+
 	pSprite = new Sprite(spriteHandle, L"Resources//Images//simon.png");
 	this->_listSprite.insert(pair<eID, Sprite*>(eID::PLAYER, pSprite));
 	this->loadSpriteInfo(eID::PLAYER, "Resources//Images//simon.txt");

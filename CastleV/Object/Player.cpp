@@ -857,6 +857,18 @@ float Player::checkCollision(BaseObject* object, float dt)
 			}
 		}
 	}
+	else if (objectId == BREAK_WALL)
+	{
+		auto breakwall = (BreakWall*)object;
+		if (ropeCollisionBody->checkCollision(object, direction, dt, false))
+		{
+			breakwall->wasHit();
+		}
+		if (this->weaponCheckCollision(object, direction, dt, false))
+		{
+			breakwall->wasHit();
+		}
+	}
 	else if (objectId == CANDLE)
 	{
 		if (ropeCollisionBody->checkCollision(object, direction, dt, false))

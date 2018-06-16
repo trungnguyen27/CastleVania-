@@ -70,7 +70,7 @@ bool PlayScene::init()
 	player->getBounding();
 	this->_player = player;
 
-	_currentStage = MAP_STAGE_10;
+	_currentStage = MAP_STAGE_12;
 
 	initStage();
 
