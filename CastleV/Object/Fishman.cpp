@@ -229,7 +229,7 @@ void Fishman::init()
 	auto movement = new Movement(GVector2(0, 0), GVector2(0, 0), _sprite);
 	_componentList["Movement"] = movement;
 
-	_componentList["Gravity"] = new Gravity(GVector2(0, -GRAVITY), movement);
+	_componentList["Gravity"] = new Gravity(GVector2(0, -GRAVITY - 1000), movement);
 	this->setOrigin(GVector2(0.5f, 0.0f));
 	auto gravity = (Gravity*)this->_componentList["Gravity"];
 	gravity->setStatus(eGravityStatus::SHALLOWED);

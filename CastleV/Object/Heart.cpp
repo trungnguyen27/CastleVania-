@@ -15,7 +15,7 @@ void Heart::draw(LPD3DXSPRITE spriteHandle, Viewport* viewport)
 {
 	_sprite->render(spriteHandle, viewport);
 }
-
+bool stop = false;
 void Heart::update(float deltatime)
 {
 	if (_startDestroyStopWatch)
@@ -25,14 +25,26 @@ void Heart::update(float deltatime)
 			this->setStatus(DESTROY);
 		}
 	}
-
+	
 	auto move = (Movement*)this->_componentList["Movement"];
 	if (!_stop)
 	{
+		
 		if ((this->getPositionX() < _initX - 32) || (this->getPositionX() > _initX + 32))
 		{
-			move->setVelocity(GVector2(move->getVelocity().x*(-1), move->getVelocity().y));
+			int revert = 0;
+			if (this->getPositionY() > 500 || stop) {
+				revert = -1;
+	
+			}
+			else {
+				revert = 1;
+				stop = true;
+			}
+			move->setVelocity(GVector2(move->getVelocity().x*(-1), revert*50));
+
 		}
+		 
 	}
 	else
 	{
